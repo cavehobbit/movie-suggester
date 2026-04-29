@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+
+
 body {
     font-family: 'Courier New', monospace;
     background-image: url('images/pink.jfif');
@@ -15,6 +17,7 @@ body {
     transition: background-image 0.5s ease;
 }
 
+/*themees simple, dark & pink*/
 body.theme-dark {
     background-image: url('images/black.jfif');
 }
@@ -22,6 +25,8 @@ body.theme-dark {
 body.theme-simple {
     background-image: url('images/simple.jfif');
 }
+
+/*new green.png*/
 
 body.anime-mode {
     background-image: url('images/green.png');
@@ -78,6 +83,8 @@ body.anime-mode {
     background: #000;
     color: #fff;
 }
+
+/*for anime Mode*/
 
 .anime-selector {
     position: fixed;
@@ -144,6 +151,8 @@ body.anime-mode {
     height: auto;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
 }
+
+/*rectang*/
 
 .dialogue-box {
     position: fixed;
@@ -221,12 +230,14 @@ body.anime-mode {
     width: 90%;
     max-width: 900px;
     z-index: 5;
+
 }
 
 .type-selector {
     text-align: center;
     position: relative;
 }
+
 
 #search-bar {
     width: 100%;
@@ -258,6 +269,7 @@ body.anime-mode {
     border-bottom: 3px solid #000;
     cursor: pointer;
     transition: background 0.2s;
+
 }
 
 .search-result-item:hover {
@@ -267,12 +279,15 @@ body.anime-mode {
 .search-result-item h4 {
     font-size: 18px;
     margin-bottom: 5px;
+
 }
 
 .search-result-item p {
     font-size: 14px;
     color: #555;
 }
+
+
 
 .type-buttons {
     display: flex;
@@ -309,6 +324,7 @@ body.anime-mode {
 }
 
 .question {
+
     margin-bottom: 40px;
 }
 
@@ -335,6 +351,7 @@ body.anime-mode {
     font-family: 'Courier New', monospace;
     box-shadow: 4px 4px 0 #000;
     transition: all 0.2s;
+
 }
 
 .options button:hover {
@@ -344,12 +361,14 @@ body.anime-mode {
     box-shadow: 0px 0px 0 #000;
 }
 
+
 .options button.selected {
     background: #000;
     color: #fff;
     transform: translate(4px, 4px);
     box-shadow: 0px 0px 0 #000;
 }
+
 
 .submit-btn {
     width: 100%;
@@ -380,6 +399,7 @@ body.anime-mode {
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 100;
+
 }
 
 .thinking-screen img {
@@ -399,6 +419,24 @@ body.anime-mode {
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+
+}
+
+/*finale*/
+
+.result-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 8px solid #000;
+    padding: 60px;
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+    z-index: 100;
+    box-shadow: 16px 16px 0 #000;
 }
 
 .result-screen h2 {
@@ -413,6 +451,8 @@ body.anime-mode {
     line-height: 1.8;
     margin-bottom: 30px;
 }
+
+/*takes back scr*/
 
 #restart-btn {
     background: #000;
@@ -450,6 +490,8 @@ body.anime-mode {
     justify-content: center;
     margin-top: 30px;
 }
+
+/*white n black*/
 
 .yes-btn {
     background: #fff;
@@ -517,6 +559,7 @@ body.anime-mode {
     padding: 20px 50px;
     font-size: 20px;
     font-weight: bold;
+
     cursor: pointer;
     font-family: 'Courier New', monospace;
     box-shadow: 6px 6px 0 #555;
@@ -529,3 +572,5 @@ body.anime-mode {
     transform: translate(4px, 4px);
     box-shadow: 0px 0px 0 #555;
 }
+
+

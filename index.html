@@ -3,35 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Finder - Guided by Luffy</title>
+
+    <title>Movie Finder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="theme-selector">
+
         <button id="theme-btn" class="theme-main-btn">THEMES</button>
         <div id="theme-options" class="theme-options hidden">
             <button onclick="changeTheme('default')">NORMAL</button>
+
             <button onclick="changeTheme('dark')">DARK</button>
             <button onclick="changeTheme('simple')">SIMPLE</button>
         </div>
     </div>
 
     <div class="anime-selector" id="anime-selector">
+
         <button id="anime-btn" class="anime-main-btn">ANIME MODE</button>
     </div>
 
     <div id="overlay" class="overlay"></div>
 
     <div id="character-container" class="character-container">
+
         <img id="character-img" src="images/welcome.png" alt="Character">
     </div>
+
+
 
     <div id="dialogue-box" class="dialogue-box">
         <p id="dialogue-text"></p>
         <div id="dialogue-options" class="dialogue-options"></div>
         <button id="continue-btn" class="continue-btn hidden">CONTINUE →</button>
     </div>
+
+
 
     <div id="question-screen" class="question-screen hidden">
         <div class="type-selector">
@@ -42,6 +51,8 @@
                 <button onclick="selectType('season')">SEASON</button>
             </div>
         </div>
+
+
 
         <div id="questions-container" class="questions-container hidden">
             <div class="question" id="q1">
@@ -56,9 +67,12 @@
                 <h3 id="q3-text"></h3>
                 <div id="q3-options" class="options"></div>
             </div>
+
             <button id="submit-btn" class="submit-btn hidden">GET RECOMMENDATION</button>
         </div>
+
     </div>
+
 
     <div id="thinking-screen" class="thinking-screen hidden">
         <img src="images/thinking.png" alt="Luffy Thinking">
@@ -67,6 +81,7 @@
 
     <div id="result-screen" class="result-screen hidden">
         <h2 id="result-title"></h2>
+        
         <p id="result-description"></p>
 
         <div id="feedback-buttons" class="feedback-buttons hidden">
@@ -78,7 +93,7 @@
     </div>
 
     <div id="final-screen" class="final-screen hidden">
-        <h2>ENJOY YOUR WATCH! </h2>
+        <h2>ENJOY YOUR WATCH! :3 </h2>
         <button onclick="restart()">FIND ANOTHER</button>
     </div>
 

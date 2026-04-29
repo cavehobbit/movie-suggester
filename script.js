@@ -10,6 +10,8 @@ let userAnswers = {
 let shownRecommendations = []; 
 let animeMode = false;
 
+//8 genre
+
 const movieQuestions = [
     {
         question: "What genre do you want?",
@@ -25,6 +27,8 @@ const movieQuestions = [
         options: ["Happy", "Sad", "Excited", "Chill", "Scared", "Curious"]
     }
 ];
+
+//rm romance and adding teendrama
 
 const seasonQuestions = [
     {
@@ -42,11 +46,13 @@ const seasonQuestions = [
     }
 ];
 
+
 const animeQuestions = [
     {
         question: "What genre do you want?",
         options: ["Shonen", "Slice of Life", "Isekai", "Mecha", "Romance", "Horror", "Sports", "Mystery"]
     },
+
     {
         question: "Have you seen something you want more of?",
         options: ["Yes", "No, surprise me"],
@@ -73,6 +79,8 @@ const mangaQuestions = [
         options: ["Short (Under 50)", "Medium (50-200)", "Long (200+)", "Don't care"]
     }
 ];
+
+
 
 const movieDatabase = [
     { title: "Dead Poets Society", genre: "Drama", mood: "Curious", tags: ["school", "poetry", "inspiration"], info: "2h 8m • Robin Williams, Ethan Hawke • Dir: Peter Weir" },
@@ -117,6 +125,8 @@ const movieDatabase = [
     { title: "Peter Pan", genre: "Fantasy", mood: "Happy", tags: ["adventure", "magic", "childhood"], info: "1h 53m • Jeremy Sumpter, Rachel Hurd-Wood • Dir: P.J. Hogan" }
 ];
 
+
+
 const seasonDatabase = [
     { title: "Skins", genre: "Teen Drama", episodes: "61 episodes (7 seasons)", tags: ["teens", "drugs", "uk", "friendship"], info: "Nicholas Hoult, Dev Patel, Kaya Scodelario • UK Series" },
     { title: "Euphoria", genre: "Teen Drama", episodes: "16 episodes (2 seasons)", tags: ["drugs", "addiction", "high school", "dark"], info: "Zendaya, Hunter Schafer • Creator: Sam Levinson" },
@@ -156,6 +166,8 @@ const seasonDatabase = [
     { title: "WAYNE", genre: "Action", episodes: "10 episodes (1 season)", tags: ["teen", "violence", "road trip", "comedy"], info: "Mark McKenna, Ciara Bravo • YouTube Premium series" },
     { title: "The Queen's Gambit", genre: "Drama", episodes: "7 episodes (Limited series)", tags: ["chess", "genius", "60s", "addiction"], info: "Anya Taylor-Joy • Dir: Scott Frank" }
 ];
+
+
 
 //addmore
 
@@ -197,6 +209,7 @@ const animeDatabase = [
     { title: "Bocchi the Rock!", genre: "Slice of Life", vibe: "Funny", tags: ["music", "social anxiety", "comedy"], info: "1 season • CloverWorks • Based on Aki Hamaji's manga" },
     { title: "Frieren: Beyond Journey's End", genre: "Fantasy", vibe: "Emotional", tags: ["adventure", "elves", "time"], info: "1 season • Madhouse • Based on Kanehito Yamada's manga" }
 ];
+
 //add more later
 
 const mangaDatabase = [
@@ -232,8 +245,12 @@ const mangaDatabase = [
     { title: "Tower of God", genre: "Fantasy", chapters: "580+ chapters (Ongoing)", tags: ["tower", "adventure", "mystery"], info: "SIU • Korean Manhwa • Started 2010" }
 ];
 
+
+
 let thinkingTimeout = null;
 let characterTimeout = null;
+let currentResultType = null;
+let currentResultTitle = null;
 
 const searchBar = document.getElementById('search-bar');
 const searchResults = document.getElementById('search-results');
@@ -254,18 +271,22 @@ searchBar.addEventListener('input', (e) => {
         allContent = [...movieDatabase, ...seasonDatabase];
     }
 
-        const filtered = allContent.filter(item => {
+    //filtersss
+
+    const filtered = allContent.filter(item => {
         const titleMatch = item.title && item.title.toLowerCase().includes(query);
         const genreMatch = item.genre && item.genre.toLowerCase().includes(query);
         const tagsMatch = Array.isArray(item.tags) && item.tags.some(tag => tag.toLowerCase().includes(query));
         return titleMatch || genreMatch || tagsMatch;
     });
-
+    
     if (filtered.length === 0) {
         searchResults.classList.add('hidden');
         searchResults.innerHTML = '';
         return;
     }
+
+    //not random
 
     const unique = [];
     const seenTitles = new Set();
@@ -297,7 +318,7 @@ searchBar.addEventListener('input', (e) => {
     });
 
     searchResults.classList.remove('hidden');
-    });
+});
 
 document.addEventListener('click', (e) => {
     if (e.target !== searchBar && !searchResults.contains(e.target)) {
@@ -310,21 +331,35 @@ function showSearchedItem(item) {
     searchBar.value = '';
 
     document.getElementById('question-screen').classList.add('hidden');
+    
     document.getElementById('character-container').classList.add('hidden');
 
     const thinkingScreen = document.getElementById('thinking-screen');
     if (animeMode) {
         thinkingScreen.querySelector('img').src = 'images/dogstand.png';
+
         thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
     } else {
         thinkingScreen.querySelector('img').src = 'images/thinking.png';
         thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
     }
     thinkingScreen.classList.remove('hidden');
-    //fixed thinking screen
-    thinkingTimeout = setTimeout(() => {
 
+    thinkingTimeout = setTimeout(() => {
         thinkingScreen.classList.add('hidden');
+
+        currentResultTitle = item.title;
+        if (movieDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'movie';
+        } else if (seasonDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'season';
+        } else if (animeDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'anime';
+        } else if (mangaDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'manga';
+        } else {
+            currentResultType = null;
+        }
 
         const resultScreen = document.getElementById('result-screen');
         document.getElementById('result-title').textContent = item.title;
@@ -338,12 +373,15 @@ function showSearchedItem(item) {
 }
 
 function typeWriter(text, element, callback) {
+
+
     element.textContent = '';
     let i = 0;
     
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
+
             i++;
             setTimeout(type, 30);
         } else if (callback) {
@@ -355,11 +393,14 @@ function typeWriter(text, element, callback) {
 }
 
 function changeCharacterImage(imageName) {
+
     const charImg = document.getElementById('character-img');
+
     charImg.src = `images/${imageName}`;
 }
 
 document.getElementById('theme-btn').addEventListener('click', () => {
+
     const themeOptions = document.getElementById('theme-options');
     themeOptions.classList.toggle('hidden');
 });
@@ -369,8 +410,10 @@ function changeTheme(theme) {
         document.body.className = '';
     } else {
         document.body.className = `theme-${theme}`;
+
     }
     document.getElementById('theme-options').classList.add('hidden');
+
 }
 
 function switchToAnimeMode() {
@@ -385,10 +428,12 @@ function switchToAnimeMode() {
     
     animeMode = true;
     document.body.style.backgroundImage = "url('images/green.jfif')";
+
     document.getElementById('anime-btn').textContent = 'MOVIE MODE';
 
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
+
     document.getElementById('final-screen').classList.add('hidden');
 
     document.getElementById('dialogue-box').style.display = 'none';
@@ -397,13 +442,14 @@ function switchToAnimeMode() {
     document.getElementById('overlay').classList.remove('fade-out');
 
     const charContainer = document.getElementById('character-container');
+
     charContainer.classList.remove('minimize');
     charContainer.classList.remove('hidden');
     changeCharacterImage('dogspeak.png');
 
     const dialogueBox = document.getElementById('dialogue-box');
-
     const dialogueText = document.getElementById('dialogue-text');
+
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
 
@@ -412,6 +458,7 @@ function switchToAnimeMode() {
     dialogueBox.style.display = 'block';
 
     typeWriter("YOU CAN CHOOSE ANIME FROM HERE BUAHAHA", dialogueText, () => {
+
         continueBtn.classList.remove('hidden');
     });
 
@@ -420,6 +467,7 @@ function switchToAnimeMode() {
         dialogueBox.style.display = 'none';
         document.getElementById('overlay').classList.add('fade-out');
         charContainer.classList.add('minimize');
+
         
         document.getElementById('question-screen').classList.remove('hidden');
         
@@ -427,6 +475,7 @@ function switchToAnimeMode() {
         document.getElementById('questions-container').classList.add('hidden');
         
         const typeButtons = document.querySelector('.type-buttons');
+
         typeButtons.innerHTML = `
             <button onclick="selectType('anime')">ANIME</button>
             <button onclick="selectType('manga')">MANGA</button>
@@ -452,6 +501,7 @@ function switchToMovieMode() {
     document.getElementById('result-screen').classList.add('hidden');
 
     document.getElementById('final-screen').classList.add('hidden');
+
     document.getElementById('dialogue-box').style.display = 'none';
     document.getElementById('thinking-screen').classList.add('hidden');
 
@@ -459,11 +509,14 @@ function switchToMovieMode() {
 
     const charContainer = document.getElementById('character-container');
     charContainer.classList.remove('minimize');
+
     charContainer.classList.remove('hidden');
     changeCharacterImage('welcome.png');
 
     const dialogueBox = document.getElementById('dialogue-box');
+
     const dialogueText = document.getElementById('dialogue-text');
+
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
 
@@ -471,16 +524,15 @@ function switchToMovieMode() {
     continueBtn.classList.add('hidden');
     dialogueBox.style.display = 'block';
 
-
     typeWriter("Back to movies and shows, huh? Let's find you something good!", dialogueText, () => {
         continueBtn.classList.remove('hidden');
-
     });
 
     continueBtn.onclick = () => {
         changeCharacterImage('whiletyping.png');
         dialogueBox.style.display = 'none';
         document.getElementById('overlay').classList.add('fade-out');
+
         charContainer.classList.add('minimize');
         document.getElementById('question-screen').classList.remove('hidden');
         
@@ -496,18 +548,16 @@ function switchToMovieMode() {
 }
 
 document.getElementById('anime-btn').addEventListener('click', () => {
-
     if (animeMode) {
         switchToMovieMode();
+
     } else {
         switchToAnimeMode();
-
     }
 });
 
 window.addEventListener('load', () => {
     const dialogueText = document.getElementById('dialogue-text');
-
     const dialogueOptions = document.getElementById('dialogue-options');
     
     typeWriter("Do you ever feel like you can't find a good movie to watch?", dialogueText, () => {
@@ -520,6 +570,7 @@ window.addEventListener('load', () => {
 
 function handleYesNo(answer) {
     const dialogueText = document.getElementById('dialogue-text');
+
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
     
@@ -527,20 +578,19 @@ function handleYesNo(answer) {
         changeCharacterImage('no.png');
         dialogueOptions.innerHTML = '';
         typeWriter("Oh... Well, goodbye then! :( ", dialogueText, () => {
-
             setTimeout(() => {
                 document.body.innerHTML = '<div style="background:#000; width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; color:#fff; font-size:48px; font-family:Courier New;">GOODBYE!</div>';
             }, 2000);
         });
     } else {
         dialogueOptions.innerHTML = '';
-        typeWriter("Then I've got the perfect thing for you! All you have to do is answer 3 quick questions and you'll get a movie to chill with! (or cry)", dialogueText, () => {
+        typeWriter("Then I've got the perfect thing for you!! All you have to do is answer 3 quick questions and you'll get a movie to chill with! (or cry)", dialogueText, () => {
             continueBtn.classList.remove('hidden');
             continueBtn.onclick = () => {
                 changeCharacterImage('whiletyping.png');
                 document.getElementById('dialogue-box').style.display = 'none';
-
                 document.getElementById('overlay').classList.add('fade-out');
+
                 document.getElementById('character-container').classList.add('minimize');
                 document.getElementById('question-screen').classList.remove('hidden');
                 document.getElementById('anime-selector').classList.add('show');
@@ -552,7 +602,6 @@ function handleYesNo(answer) {
 function selectType(type) {
     userAnswers.type = type;
     document.querySelector('.type-selector').style.display = 'none';
-
     document.getElementById('questions-container').classList.remove('hidden');
     
     let questions;
@@ -560,11 +609,9 @@ function selectType(type) {
         questions = movieQuestions;
     } else if (type === 'season') {
         questions = seasonQuestions;
-
     } else if (type === 'anime') {
         questions = animeQuestions;
     } else if (type === 'manga') {
-
         questions = mangaQuestions;
     }
     
@@ -577,25 +624,22 @@ function loadQuestions(questions) {
         document.getElementById(`q${questionNum}-text`).textContent = `${questionNum}. ${q.question}`;
         
         const optionsContainer = document.getElementById(`q${questionNum}-options`);
-
         optionsContainer.innerHTML = '';
         
         q.options.forEach(option => {
             const btn = document.createElement('button');
-
             btn.textContent = option;
             btn.onclick = () => selectAnswer(questionNum, option, btn, q.hasInput);
             optionsContainer.appendChild(btn);
         });
         
+
         if (q.hasInput && questionNum === 2) {
             const inputField = document.createElement('input');
             inputField.type = 'text';
             inputField.id = 'similar-input';
-
             inputField.placeholder = 'Type the name here...';
             inputField.className = 'similar-input hidden';
-
             inputField.style.cssText = 'width: 100%; padding: 15px; margin-top: 15px; font-size: 16px; border: 4px solid #000; font-family: Courier New;';
             optionsContainer.appendChild(inputField);
         }
@@ -604,13 +648,13 @@ function loadQuestions(questions) {
     document.getElementById('submit-btn').classList.remove('hidden');
 }
 
+
+
 function selectAnswer(questionNum, answer, button, hasInput) {
     userAnswers[`q${questionNum}`] = answer;
     
     const allButtons = button.parentElement.querySelectorAll('button');
-
     allButtons.forEach(btn => btn.classList.remove('selected'));
-
     
     button.classList.add('selected');
     
@@ -620,15 +664,15 @@ function selectAnswer(questionNum, answer, button, hasInput) {
             inputField.classList.remove('hidden');
         } else {
             inputField.classList.add('hidden');
-
             userAnswers.q2Input = '';
         }
     }
 }
+//should ans
 
 document.getElementById('submit-btn').addEventListener('click', () => {
-
     if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+
         alert('Please answer all questions!');
         return;
     }
@@ -636,44 +680,64 @@ document.getElementById('submit-btn').addEventListener('click', () => {
     if (userAnswers.q2 === 'Yes') {
         const inputField = document.getElementById('similar-input');
         if (inputField && !inputField.classList.contains('hidden')) {
-
             userAnswers.q2Input = inputField.value.trim().toLowerCase();
         }
     }
     
     document.getElementById('question-screen').classList.add('hidden');
-
     document.getElementById('character-container').classList.add('hidden');
     
     const thinkingScreen = document.getElementById('thinking-screen');
     if (animeMode) {
         thinkingScreen.querySelector('img').src = 'images/dogstand.png';
-
         thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
     } else {
         thinkingScreen.querySelector('img').src = 'images/thinking.png';
-
         thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
     }
     thinkingScreen.classList.remove('hidden');
     
     thinkingTimeout = setTimeout(() => {
-        const recommendation = getRecommendation();
+        let recommendation = null;
+
+        try {
+            recommendation = getRecommendation();
+        } catch (e) {
+            recommendation = null;
+        }
+
+        if (!recommendation) {
+            let database = null;
+            if (userAnswers.type === 'movie') {
+                database = movieDatabase;
+            } else if (userAnswers.type === 'season') {
+                database = seasonDatabase;
+            } else if (userAnswers.type === 'anime') {
+                database = animeDatabase;
+            } else if (userAnswers.type === 'manga') {
+                database = mangaDatabase;
+            }
+            if (database && database.length) {
+                recommendation = database[Math.floor(Math.random() * database.length)];
+            } else {
+                return;
+            }
+        }
+
         showResult(recommendation);
     }, 3000);
 });
 
 function findSimilarContent(userInput, database) {
+
     if (!userInput) return null;
     
     let match = database.find(item => 
-
         item.title.toLowerCase().includes(userInput)
     );
     
     if (match) {
         return database.filter(item => 
-
             item.title !== match.title &&
             item.tags.some(tag => match.tags.includes(tag))
         );
@@ -686,10 +750,8 @@ function getRecommendation() {
 
     let database;
     if (userAnswers.type === 'movie') {
-
         database = movieDatabase;
     } else if (userAnswers.type === 'season') {
-
         database = seasonDatabase;
     } else if (userAnswers.type === 'anime') {
         database = animeDatabase;
@@ -708,15 +770,12 @@ function getRecommendation() {
     
     candidates = candidates.filter(item => 
         item.genre.toLowerCase() === userAnswers.q1.toLowerCase() ||
-
         item.tags.some(tag => tag.toLowerCase().includes(userAnswers.q1.toLowerCase()))
     );
     
     if (candidates.length === 0) {
         candidates = [...database];
     }
-
-
     
     if (userAnswers.type === 'movie' && userAnswers.q3 !== "Don't care") {
         const moodFiltered = candidates.filter(item => 
@@ -729,34 +788,27 @@ function getRecommendation() {
     
     if (userAnswers.type === 'anime' && userAnswers.q3 !== "Don't care") {
         const vibeFiltered = candidates.filter(item => 
-
             item.vibe && item.vibe.toLowerCase() === userAnswers.q3.toLowerCase()
         );
         if (vibeFiltered.length > 0) {
-
             candidates = vibeFiltered;
         }
     }
     
-
-
     if (userAnswers.type === 'season' && userAnswers.q3 !== "Don't care") {
-
         if (userAnswers.q3.includes('Short')) {
+
             candidates = candidates.filter(item => {
                 const episodeNum = parseInt(item.episodes);
                 return episodeNum < 20;
             });
         } else if (userAnswers.q3.includes('Medium')) {
-
             candidates = candidates.filter(item => {
                 const episodeNum = parseInt(item.episodes);
-
                 return episodeNum >= 20 && episodeNum <= 50;
             });
         } else if (userAnswers.q3.includes('Long')) {
             candidates = candidates.filter(item => {
-
                 const episodeNum = parseInt(item.episodes);
                 return episodeNum > 50;
             });
@@ -765,28 +817,23 @@ function getRecommendation() {
     
     if (userAnswers.type === 'manga' && userAnswers.q3 !== "Don't care") {
         if (userAnswers.q3.includes('Short')) {
-            candidates = candidates.filter(item => {
 
+            candidates = candidates.filter(item => {
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum < 50;
             });
         } else if (userAnswers.q3.includes('Medium')) {
             candidates = candidates.filter(item => {
-
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum >= 50 && chapterNum <= 200;
             });
         } else if (userAnswers.q3.includes('Long')) {
-
             candidates = candidates.filter(item => {
-
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum > 200;
             });
         }
     }
-
-
     
     candidates = candidates.filter(item => 
 
@@ -794,30 +841,46 @@ function getRecommendation() {
     );
     
     if (candidates.length === 0) {
-
         shownRecommendations = [];
-
         candidates = [...database];
     }
     
     const recommendation = candidates[Math.floor(Math.random() * candidates.length)];
 
     shownRecommendations.push(recommendation.title);
+
     
     return recommendation;
 }
 
+//result spesific
 function showResult(recommendation) {
-
     document.getElementById('thinking-screen').classList.add('hidden');
+    
+    currentResultTitle = recommendation.title;
+    if (userAnswers.type) {
+        currentResultType = userAnswers.type;
+    } else if (!currentResultType) {
+        if (movieDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'movie';
+        } else if (seasonDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'season';
+        } else if (animeDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'anime';
+        } else if (mangaDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'manga';
+        } else {
+            currentResultType = null;
+        }
+    }
     
     const resultScreen = document.getElementById('result-screen');
     document.getElementById('result-title').textContent = recommendation.title;
     
     let descText = '';
-    if (userAnswers.type === 'season' || userAnswers.type === 'anime') {
+    if (userAnswers.type === 'season' || userAnswers.type === 'anime' || currentResultType === 'season' || currentResultType === 'anime') {
         descText = (recommendation.episodes ? recommendation.episodes + ' • ' : '');
-    } else if (userAnswers.type === 'manga') {
+    } else if (userAnswers.type === 'manga' || currentResultType === 'manga') {
         descText = (recommendation.chapters ? recommendation.chapters + ' • ' : '');
     }
     descText += recommendation.info;
@@ -825,20 +888,18 @@ function showResult(recommendation) {
     document.getElementById('result-description').textContent = descText;
     
     document.getElementById('feedback-buttons').classList.remove('hidden');
-
     document.getElementById('restart-btn').classList.add('hidden');
     
     resultScreen.classList.remove('hidden');
 }
 
+
 function handleFeedback(liked) {
     if (liked) {
         document.getElementById('result-screen').classList.add('hidden');
-
         
         const charContainer = document.getElementById('character-container');
         charContainer.classList.remove('hidden');
-
         charContainer.classList.remove('minimize');
         
         if (animeMode) {
@@ -855,9 +916,7 @@ function handleFeedback(liked) {
         document.getElementById('result-screen').classList.add('hidden');
         
         const charContainer = document.getElementById('character-container');
-
         charContainer.classList.remove('hidden');
-
         charContainer.classList.remove('minimize');
         
         if (animeMode) {
@@ -865,6 +924,8 @@ function handleFeedback(liked) {
         } else {
             changeCharacterImage('findmore.png');
         }
+
+        
         
         characterTimeout = setTimeout(() => {
             charContainer.classList.add('hidden');
@@ -872,7 +933,6 @@ function handleFeedback(liked) {
             const thinkingScreen = document.getElementById('thinking-screen');
             if (animeMode) {
                 thinkingScreen.querySelector('img').src = 'images/dogstand.png';
-
                 thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
             } else {
                 thinkingScreen.querySelector('img').src = 'images/thinking.png';
@@ -881,11 +941,40 @@ function handleFeedback(liked) {
             thinkingScreen.classList.remove('hidden');
             
             thinkingTimeout = setTimeout(() => {
-                const newRecommendation = getRecommendation();
-                showResult(newRecommendation);
+                let newRecommendation = null;
 
+                try {
+                    if (userAnswers.type) {
+                        newRecommendation = getRecommendation();
+                    }
+                } catch (e) {
+                    newRecommendation = null;
+                }
+
+                if (!newRecommendation) {
+                    let mediaType = userAnswers.type || currentResultType;
+                    let database = null;
+                    if (mediaType === 'movie') {
+                        database = movieDatabase;
+                    } else if (mediaType === 'season') {
+                        database = seasonDatabase;
+                    } else if (mediaType === 'anime') {
+                        database = animeDatabase;
+                    } else if (mediaType === 'manga') {
+                        database = mangaDatabase;
+                    }
+                    if (database && database.length) {
+                        const pool = database.filter(item => item.title !== currentResultTitle);
+                        const source = pool.length ? pool : database;
+                        newRecommendation = source[Math.floor(Math.random() * source.length)];
+                    } else {
+                        return;
+                    }
+                }
+
+                showResult(newRecommendation);
             }, 3000);
-        }, 2000);
+        }, 2000); 
     }
 }
 
