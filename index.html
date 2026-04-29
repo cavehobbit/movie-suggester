@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Finder</title>
+    <title>Movie Finder - Guided by Luffy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- theme Selector -->
     <div class="theme-selector">
         <button id="theme-btn" class="theme-main-btn">THEMES</button>
         <div id="theme-options" class="theme-options hidden">
-            <button onclick="changeTheme('normal')">NORMAL</button>
+            <button onclick="changeTheme('default')">NORMAL</button>
             <button onclick="changeTheme('dark')">DARK</button>
             <button onclick="changeTheme('simple')">SIMPLE</button>
         </div>
@@ -21,7 +20,6 @@
     <div class="anime-selector" id="anime-selector">
         <button id="anime-btn" class="anime-main-btn">ANIME MODE</button>
     </div>
-
 
     <div id="overlay" class="overlay"></div>
 
@@ -35,11 +33,9 @@
         <button id="continue-btn" class="continue-btn hidden">CONTINUE →</button>
     </div>
 
-
     <div id="question-screen" class="question-screen hidden">
         <div class="type-selector">
             <input type="text" id="search-bar" placeholder="Search or choose below...">
-
             <div id="search-results" class="search-results hidden"></div>
             <div class="type-buttons">
                 <button onclick="selectType('movie')">MOVIE</button>
@@ -64,18 +60,15 @@
         </div>
     </div>
 
-    <!-- Thinking Screen -->
     <div id="thinking-screen" class="thinking-screen hidden">
         <img src="images/thinking.png" alt="Luffy Thinking">
         <h2>LUFFY IS THINKING...</h2>
     </div>
 
-    <!-- finalscreen  -->
     <div id="result-screen" class="result-screen hidden">
         <h2 id="result-title"></h2>
         <p id="result-description"></p>
 
-        <!-- -->
         <div id="feedback-buttons" class="feedback-buttons hidden">
             <button onclick="handleFeedback(true)" class="yes-btn">YES, I LIKE IT!</button>
             <button onclick="handleFeedback(false)" class="no-btn">NO, KEEP LOOKING</button>
@@ -84,7 +77,6 @@
         <button id="restart-btn" onclick="restart()" class="hidden">START OVER</button>
     </div>
 
- 
     <div id="final-screen" class="final-screen hidden">
         <h2>ENJOY YOUR WATCH! </h2>
         <button onclick="restart()">FIND ANOTHER</button>
