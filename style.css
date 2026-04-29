@@ -22,6 +22,7 @@ body.theme-dark {
     background-image: url('images/black.jfif');
 }
 
+
 body.theme-simple {
     background-image: url('images/simple.jfif');
 }
@@ -572,5 +573,4 @@ body.anime-mode {
     transform: translate(4px, 4px);
     box-shadow: 0px 0px 0 #555;
 }
-
-
+ 
