@@ -5,10 +5,6 @@ If there's a specific movie or season you really liked & want to see something s
 You can pick the length of the series as well! So it won't suggest anything long unless you choose it and vice versa.
 A character Luffy is there to guide you through the movie/season mode.
 
-![alt text](images/welcome.png.png)
-
-
-
 Update: Another character Doggo was added
 You can also pick Anime and Manga now! By pretty much the same process. The character Doggo will guide you.
 
