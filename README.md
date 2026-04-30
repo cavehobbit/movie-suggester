@@ -12,6 +12,9 @@ A character Luffy is there to guide you through the movie/season mode.
 Update: Another character Doggo was added
 You can also pick Anime and Manga now! By pretty much the same process. The character Doggo will guide you.
 
+Update: New Characters added!
+Searching for books to read? Two new characters will guide you
+
 If the Light Mode is too bright for you, you can change that from themes and switch to a darker theme.
 
 Made with JS, CSS & HTML. It stores on local storage.

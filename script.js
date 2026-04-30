@@ -337,6 +337,108 @@ const mangaDatabase = [
 
     { title: "Revenged Love", genre: "Romance", chapters: "Ongoing", tags: ["bl", "yaoi", "drama"], info: "BL/Yaoi webtoon • Title approx. to 'Revenged Love'" }
 ];
+
+//books new
+
+const fictionQuestions = [
+    {
+        question: "What genre do you want?",
+        options: ["Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror", "Historical Fiction", "Young Adult", "Literary Fiction"]
+    },
+    {
+        question: "Have you read something you want more of?",
+        options: ["Yes", "No, surprise me"],
+        hasInput: true
+    },
+    {
+        question: "What's your mood?",
+        options: ["Adventurous", "Romantic", "Dark", "Lighthearted", "Thought-provoking", "Mysterious"]
+    }
+];
+
+const nonFictionQuestions = [
+    {
+        question: "What topic interests you?",
+        options: ["Biography", "History", "Science", "Self-Help", "Philosophy", "True Crime", "Business", "Psychology"]
+    },
+    {
+        question: "Have you read something you want more of?",
+        options: ["Yes", "No, surprise me"],
+        hasInput: true
+    },
+    {
+        question: "What's your goal?",
+        options: ["Learn something new", "Get inspired", "Understand myself", "Explore history", "Improve skills", "Be entertained"]
+    }
+];
+
+const fictionDatabase = [
+    { title: "The Hobbit", genre: "Fantasy", mood: "Adventurous", tags: ["dragons", "quest", "tolkien"], info: "J.R.R. Tolkien • 310 pages • Classic fantasy adventure" },
+    { title: "Harry Potter and the Sorcerer's Stone", genre: "Fantasy", mood: "Adventurous", tags: ["magic", "school", "wizards"], info: "J.K. Rowling • 309 pages • Young wizard's journey" },
+    { title: "The Name of the Wind", genre: "Fantasy", mood: "Mysterious", tags: ["magic", "musician", "epic"], info: "Patrick Rothfuss • 662 pages • The Kingkiller Chronicle" },
+    { title: "Dune", genre: "Sci-Fi", mood: "Thought-provoking", tags: ["desert", "politics", "spice"], info: "Frank Herbert • 688 pages • Epic space opera" },
+    { title: "1984", genre: "Sci-Fi", mood: "Dark", tags: ["dystopia", "surveillance", "classic"], info: "George Orwell • 328 pages • Dystopian masterpiece" },
+    { title: "The Hunger Games", genre: "Young Adult", mood: "Adventurous", tags: ["dystopia", "survival", "rebellion"], info: "Suzanne Collins • 374 pages • YA dystopian thriller" },
+    { title: "Pride and Prejudice", genre: "Romance", mood: "Romantic", tags: ["classic", "england", "manners"], info: "Jane Austen • 432 pages • Classic romance" },
+    { title: "The Fault in Our Stars", genre: "Young Adult", mood: "Romantic", tags: ["cancer", "teen", "tearjerker"], info: "John Green • 313 pages • Contemporary YA romance" },
+    { title: "Gone Girl", genre: "Mystery", mood: "Dark", tags: ["thriller", "marriage", "twist"], info: "Gillian Flynn • 432 pages • Psychological thriller" },
+    { title: "The Girl with the Dragon Tattoo", genre: "Mystery", mood: "Dark", tags: ["sweden", "hacker", "murder"], info: "Stieg Larsson • 465 pages • Nordic noir thriller" },
+    { title: "And Then There Were None", genre: "Mystery", mood: "Mysterious", tags: ["island", "murder", "agatha christie"], info: "Agatha Christie • 272 pages • Classic mystery" },
+    { title: "It", genre: "Horror", mood: "Dark", tags: ["clown", "childhood", "stephen king"], info: "Stephen King • 1138 pages • Horror epic" },
+    { title: "The Shining", genre: "Horror", mood: "Dark", tags: ["hotel", "isolation", "madness"], info: "Stephen King • 447 pages • Psychological horror" },
+    { title: "Circe", genre: "Historical Fiction", mood: "Thought-provoking", tags: ["greek mythology", "witch", "feminism"], info: "Madeline Miller • 393 pages • Mythological retelling" },
+    { title: "The Book Thief", genre: "Historical Fiction", mood: "Thought-provoking", tags: ["nazi germany", "books", "death"], info: "Markus Zusak • 552 pages • WWII historical fiction" },
+    { title: "All the Light We Cannot See", genre: "Historical Fiction", mood: "Romantic", tags: ["ww2", "blind girl", "radio"], info: "Anthony Doerr • 531 pages • Pulitzer Prize winner" },
+    { title: "The Catcher in the Rye", genre: "Literary Fiction", mood: "Thought-provoking", tags: ["teen angst", "classic", "coming-of-age"], info: "J.D. Salinger • 277 pages • American classic" },
+    { title: "To Kill a Mockingbird", genre: "Literary Fiction", mood: "Thought-provoking", tags: ["racism", "justice", "childhood"], info: "Harper Lee • 324 pages • American classic" },
+    { title: "The Great Gatsby", genre: "Literary Fiction", mood: "Romantic", tags: ["jazz age", "wealth", "american dream"], info: "F. Scott Fitzgerald • 180 pages • American classic" },
+    { title: "Little Women", genre: "Historical Fiction", mood: "Lighthearted", tags: ["sisters", "family", "civil war"], info: "Louisa May Alcott • 759 pages • Classic coming-of-age" },
+    { title: "The Midnight Library", genre: "Literary Fiction", mood: "Thought-provoking", tags: ["parallel lives", "depression", "choices"], info: "Matt Haig • 304 pages • Philosophical fiction" },
+    { title: "Where the Crawdads Sing", genre: "Mystery", mood: "Romantic", tags: ["marsh", "murder", "coming-of-age"], info: "Delia Owens • 384 pages • Mystery romance" },
+    { title: "The Night Circus", genre: "Fantasy", mood: "Romantic", tags: ["magic", "circus", "competition"], info: "Erin Morgenstern • 387 pages • Magical realism" },
+    { title: "Six of Crows", genre: "Fantasy", mood: "Adventurous", tags: ["heist", "gang", "magic"], info: "Leigh Bardugo • 465 pages • YA fantasy heist" },
+    { title: "A Court of Thorns and Roses", genre: "Fantasy", mood: "Romantic", tags: ["fae", "beauty and beast", "romance"], info: "Sarah J. Maas • 419 pages • Romantasy" },
+    { title: "The Song of Achilles", genre: "Historical Fiction", mood: "Romantic", tags: ["greek mythology", "achilles", "lgbtq"], info: "Madeline Miller • 352 pages • Mythological romance" },
+    { title: "Frankenstein", genre: "Horror", mood: "Thought-provoking", tags: ["monster", "science", "classic"], info: "Mary Shelley • 280 pages • Gothic horror classic" },
+    { title: "Dracula", genre: "Horror", mood: "Dark", tags: ["vampire", "gothic", "classic"], info: "Bram Stoker • 418 pages • Classic vampire tale" },
+    { title: "The Picture of Dorian Gray", genre: "Literary Fiction", mood: "Dark", tags: ["vanity", "corruption", "portrait"], info: "Oscar Wilde • 254 pages • Gothic fiction" },
+    { title: "Normal People", genre: "Romance", mood: "Romantic", tags: ["ireland", "class", "modern"], info: "Sally Rooney • 273 pages • Contemporary romance" }
+];
+
+const nonFictionDatabase = [
+    { title: "Sapiens", genre: "History", goal: "Learn something new", tags: ["human history", "evolution", "anthropology"], info: "Yuval Noah Harari • 443 pages • History of humankind" },
+    { title: "Educated", genre: "Biography", goal: "Get inspired", tags: ["memoir", "education", "survival"], info: "Tara Westover • 334 pages • Memoir of self-education" },
+    { title: "Becoming", genre: "Biography", goal: "Get inspired", tags: ["michelle obama", "first lady", "memoir"], info: "Michelle Obama • 448 pages • FLOTUS memoir" },
+    { title: "The Diary of a Young Girl", genre: "Biography", goal: "Explore history", tags: ["anne frank", "holocaust", "diary"], info: "Anne Frank • 283 pages • WWII diary" },
+    { title: "Steve Jobs", genre: "Biography", goal: "Get inspired", tags: ["apple", "tech", "innovation"], info: "Walter Isaacson • 656 pages • Authorized biography" },
+    { title: "Atomic Habits", genre: "Self-Help", goal: "Improve skills", tags: ["habits", "productivity", "self-improvement"], info: "James Clear • 320 pages • Habit-building guide" },
+    { title: "The Power of Now", genre: "Self-Help", goal: "Understand myself", tags: ["mindfulness", "spirituality", "present"], info: "Eckhart Tolle • 236 pages • Spiritual guide" },
+    { title: "Thinking, Fast and Slow", genre: "Psychology", goal: "Learn something new", tags: ["decision making", "cognitive bias", "nobel prize"], info: "Daniel Kahneman • 499 pages • Behavioral psychology" },
+    { title: "The Subtle Art of Not Giving a F*ck", genre: "Self-Help", goal: "Understand myself", tags: ["philosophy", "counterintuitive", "modern"], info: "Mark Manson • 224 pages • Modern self-help" },
+    { title: "Man's Search for Meaning", genre: "Philosophy", goal: "Understand myself", tags: ["holocaust", "existentialism", "purpose"], info: "Viktor Frankl • 165 pages • Holocaust survivor's philosophy" },
+    { title: "A Brief History of Time", genre: "Science", goal: "Learn something new", tags: ["physics", "cosmology", "hawking"], info: "Stephen Hawking • 256 pages • Popular science" },
+    { title: "The Immortal Life of Henrietta Lacks", genre: "Science", goal: "Learn something new", tags: ["medical ethics", "cells", "biography"], info: "Rebecca Skloot • 381 pages • Medical history" },
+    { title: "Guns, Germs, and Steel", genre: "History", goal: "Explore history", tags: ["civilization", "geography", "anthropology"], info: "Jared Diamond • 480 pages • Human history" },
+    { title: "The Wright Brothers", genre: "Biography", goal: "Get inspired", tags: ["aviation", "innovation", "american history"], info: "David McCullough • 320 pages • Aviation pioneers" },
+    { title: "In Cold Blood", genre: "True Crime", goal: "Be entertained", tags: ["murder", "kansas", "investigation"], info: "Truman Capote • 343 pages • True crime classic" },
+    { title: "I'll Be Gone in the Dark", genre: "True Crime", goal: "Be entertained", tags: ["golden state killer", "obsession", "cold case"], info: "Michelle McNamara • 352 pages • True crime investigation" },
+    { title: "The Glass Castle", genre: "Biography", goal: "Get inspired", tags: ["memoir", "poverty", "dysfunctional family"], info: "Jeannette Walls • 288 pages • Dysfunctional family memoir" },
+    { title: "Born a Crime", genre: "Biography", goal: "Get inspired", tags: ["trevor noah", "apartheid", "south africa"], info: "Trevor Noah • 304 pages • Comedian's memoir" },
+    { title: "When Breath Becomes Air", genre: "Biography", goal: "Understand myself", tags: ["neurosurgeon", "cancer", "mortality"], info: "Paul Kalanithi • 228 pages • Doctor's memoir" },
+    { title: "The 7 Habits of Highly Effective People", genre: "Self-Help", goal: "Improve skills", tags: ["productivity", "leadership", "classic"], info: "Stephen Covey • 381 pages • Self-help classic" },
+    { title: "Meditations", genre: "Philosophy", goal: "Understand myself", tags: ["stoicism", "marcus aurelius", "ancient"], info: "Marcus Aurelius • 254 pages • Stoic philosophy" },
+    { title: "How to Win Friends and Influence People", genre: "Self-Help", goal: "Improve skills", tags: ["communication", "networking", "classic"], info: "Dale Carnegie • 291 pages • Social skills classic" },
+    { title: "The Body Keeps the Score", genre: "Psychology", goal: "Understand myself", tags: ["trauma", "ptsd", "healing"], info: "Bessel van der Kolk • 464 pages • Trauma psychology" },
+    { title: "Outliers", genre: "Psychology", goal: "Learn something new", tags: ["success", "10000 hours", "sociology"], info: "Malcolm Gladwell • 309 pages • Success psychology" },
+    { title: "The Origin of Species", genre: "Science", goal: "Learn something new", tags: ["evolution", "darwin", "biology"], info: "Charles Darwin • 502 pages • Evolutionary biology" },
+    { title: "Cosmos", genre: "Science", goal: "Learn something new", tags: ["astronomy", "carl sagan", "universe"], info: "Carl Sagan • 365 pages • Popular astronomy" },
+    { title: "The Art of War", genre: "Philosophy", goal: "Improve skills", tags: ["strategy", "ancient china", "military"], info: "Sun Tzu • 273 pages • Ancient strategy" },
+    { title: "Quiet", genre: "Psychology", goal: "Understand myself", tags: ["introversion", "personality", "society"], info: "Susan Cain • 368 pages • Introversion psychology" },
+    { title: "Freakonomics", genre: "Business", goal: "Learn something new", tags: ["economics", "incentives", "hidden side"], info: "Steven Levitt, Stephen Dubner • 336 pages • Economics pop science" },
+    { title: "The Lean Startup", genre: "Business", goal: "Improve skills", tags: ["entrepreneurship", "innovation", "business"], info: "Eric Ries • 336 pages • Startup methodology" }
+];
+
+
 //added more manga
 
 
@@ -345,6 +447,8 @@ let thinkingTimeout = null;
 let characterTimeout = null;
 let currentResultType = null;
 let currentResultTitle = null;
+let animeMode = false;
+let booksMode = false;
 
 const searchBar = document.getElementById('search-bar');
 const searchResults = document.getElementById('search-results');
@@ -359,17 +463,20 @@ searchBar.addEventListener('input', (e) => {
     }
 
     let allContent;
-    if (animeMode) {
+    if (booksMode) {
+        allContent = [...fictionDatabase, ...nonFictionDatabase];
+    } else if (animeMode) {
         allContent = [...animeDatabase, ...mangaDatabase];
     } else {
         allContent = [...movieDatabase, ...seasonDatabase];
     }
 
-    //filtersss
+    //filterss
 
     const filtered = allContent.filter(item => {
         const titleMatch = item.title && item.title.toLowerCase().includes(query);
         const genreMatch = item.genre && item.genre.toLowerCase().includes(query);
+
         const tagsMatch = Array.isArray(item.tags) && item.tags.some(tag => tag.toLowerCase().includes(query));
         return titleMatch || genreMatch || tagsMatch;
     });
@@ -379,8 +486,6 @@ searchBar.addEventListener('input', (e) => {
         searchResults.innerHTML = '';
         return;
     }
-
-    //not random
 
     const unique = [];
     const seenTitles = new Set();
@@ -394,6 +499,7 @@ searchBar.addEventListener('input', (e) => {
     searchResults.innerHTML = '';
     unique.slice(0, 10).forEach(item => {
         const resultItem = document.createElement('div');
+
         resultItem.className = 'search-result-item';
 
         let extra = '';
@@ -425,16 +531,31 @@ function showSearchedItem(item) {
     searchBar.value = '';
 
     document.getElementById('question-screen').classList.add('hidden');
-    
+
     document.getElementById('character-container').classList.add('hidden');
-
+    if (document.getElementById('character-container-right')) {
+        document.getElementById('character-container-right').classList.add('hidden');
+    }
+//axie n bev
     const thinkingScreen = document.getElementById('thinking-screen');
-    if (animeMode) {
-        thinkingScreen.querySelector('img').src = 'images/dogstand.png';
+    if (booksMode) {
+        if (fictionDatabase.some(x => x.title === item.title)) {
+            thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
 
+            thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
+        } else {
+            const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
+            const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
+            thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
+            thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
+        }
+    } else if (animeMode) {
+        thinkingScreen.querySelector('img').src = 'images/dogstand.png';
         thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
+
     } else {
         thinkingScreen.querySelector('img').src = 'images/thinking.png';
+
         thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
     }
     thinkingScreen.classList.remove('hidden');
@@ -448,15 +569,21 @@ function showSearchedItem(item) {
         } else if (seasonDatabase.some(x => x.title === item.title)) {
             currentResultType = 'season';
         } else if (animeDatabase.some(x => x.title === item.title)) {
+
             currentResultType = 'anime';
         } else if (mangaDatabase.some(x => x.title === item.title)) {
             currentResultType = 'manga';
+        } else if (fictionDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'fiction';
+        } else if (nonFictionDatabase.some(x => x.title === item.title)) {
+            currentResultType = 'nonfiction';
         } else {
             currentResultType = null;
         }
 
         const resultScreen = document.getElementById('result-screen');
         document.getElementById('result-title').textContent = item.title;
+
         document.getElementById('result-description').textContent =
             (item.episodes || item.chapters ? (item.episodes || item.chapters) + ' • ' : '') + item.info;
         
@@ -468,14 +595,13 @@ function showSearchedItem(item) {
 
 function typeWriter(text, element, callback) {
 
-
     element.textContent = '';
     let i = 0;
     
     function type() {
         if (i < text.length) {
-            element.textContent += text.charAt(i);
 
+            element.textContent += text.charAt(i);
             i++;
             setTimeout(type, 30);
         } else if (callback) {
@@ -487,13 +613,12 @@ function typeWriter(text, element, callback) {
 }
 
 function changeCharacterImage(imageName) {
-
     const charImg = document.getElementById('character-img');
-
     charImg.src = `images/${imageName}`;
 }
 
 document.getElementById('theme-btn').addEventListener('click', () => {
+
 
     const themeOptions = document.getElementById('theme-options');
     themeOptions.classList.toggle('hidden');
@@ -504,10 +629,8 @@ function changeTheme(theme) {
         document.body.className = '';
     } else {
         document.body.className = `theme-${theme}`;
-
     }
     document.getElementById('theme-options').classList.add('hidden');
-
 }
 
 function switchToAnimeMode() {
@@ -521,22 +644,21 @@ function switchToAnimeMode() {
     }
     
     animeMode = true;
+    booksMode = false;
     document.body.style.backgroundImage = "url('images/green.jfif')";
-
     document.getElementById('anime-btn').textContent = 'MOVIE MODE';
+
 
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
 
     document.getElementById('final-screen').classList.add('hidden');
-
     document.getElementById('dialogue-box').style.display = 'none';
     document.getElementById('thinking-screen').classList.add('hidden');
 
     document.getElementById('overlay').classList.remove('fade-out');
 
     const charContainer = document.getElementById('character-container');
-
     charContainer.classList.remove('minimize');
     charContainer.classList.remove('hidden');
     changeCharacterImage('dogspeak.png');
@@ -552,7 +674,6 @@ function switchToAnimeMode() {
     dialogueBox.style.display = 'block';
 
     typeWriter("YOU CAN CHOOSE ANIME FROM HERE BUAHAHA", dialogueText, () => {
-
         continueBtn.classList.remove('hidden');
     });
 
@@ -561,7 +682,6 @@ function switchToAnimeMode() {
         dialogueBox.style.display = 'none';
         document.getElementById('overlay').classList.add('fade-out');
         charContainer.classList.add('minimize');
-
         
         document.getElementById('question-screen').classList.remove('hidden');
         
@@ -569,12 +689,135 @@ function switchToAnimeMode() {
         document.getElementById('questions-container').classList.add('hidden');
         
         const typeButtons = document.querySelector('.type-buttons');
-
         typeButtons.innerHTML = `
             <button onclick="selectType('anime')">ANIME</button>
+
             <button onclick="selectType('manga')">MANGA</button>
         `;
     };
+}
+
+function switchToBooksMode() {
+    if (thinkingTimeout) {
+        clearTimeout(thinkingTimeout);
+        thinkingTimeout = null;
+    }
+    if (characterTimeout) {
+        clearTimeout(characterTimeout);
+        characterTimeout = null;
+    }
+    
+    booksMode = true;
+    animeMode = false;
+    document.body.style.backgroundImage = "url('images/yellow.jpg')";
+
+    document.getElementById('question-screen').classList.add('hidden');
+
+    document.getElementById('result-screen').classList.add('hidden');
+
+    document.getElementById('final-screen').classList.add('hidden');
+    document.getElementById('dialogue-box').style.display = 'none';
+
+    document.getElementById('thinking-screen').classList.add('hidden');
+
+    document.getElementById('overlay').classList.remove('fade-out');
+
+    const charContainer = document.getElementById('character-container');
+    charContainer.classList.remove('minimize');
+
+    charContainer.classList.remove('hidden');
+    changeCharacterImage('axienormal.png');
+
+    const dialogueBox = document.getElementById('dialogue-box');
+
+    const dialogueText = document.getElementById('dialogue-text');
+
+    const dialogueOptions = document.getElementById('dialogue-options');
+    const continueBtn = document.getElementById('continue-btn');
+
+    dialogueOptions.innerHTML = '';
+    continueBtn.classList.add('hidden');
+    dialogueBox.style.display = 'block';
+
+    //axie's dialoges
+
+    typeWriter("You found your way to the books section!!! yayaya", dialogueText, () => {
+
+        continueBtn.classList.remove('hidden');
+        continueBtn.onclick = () => {
+            continueBtn.classList.add('hidden');
+            charContainer.classList.add('hidden');
+            
+            let rightChar = document.getElementById('character-container-right');
+            if (!rightChar) {
+                rightChar = document.createElement('div');
+
+                rightChar.id = 'character-container-right';
+                rightChar.className = 'character-container-right';
+
+                rightChar.innerHTML = '<img id="character-img-right" src="images/bevnormal.png" alt="Bev">';
+                document.body.appendChild(rightChar);
+            } else {
+                rightChar.classList.remove('hidden');
+                document.getElementById('character-img-right').src = 'images/bevnormal.png';
+            }
+
+            typeWriter("Yes, finally you've come to look for the REAL art..", dialogueText, () => {
+                continueBtn.classList.remove('hidden');
+                continueBtn.onclick = () => {
+                    continueBtn.classList.add('hidden');
+
+                    rightChar.classList.add('hidden');
+                    charContainer.classList.remove('hidden');
+                    
+                    typeWriter("don't mind her, she has been reading for the last 40 hours", dialogueText, () => {
+                        continueBtn.classList.remove('hidden');
+                        continueBtn.onclick = () => {
+                            continueBtn.classList.add('hidden');
+                            charContainer.classList.add('hidden');
+
+                            rightChar.classList.remove('hidden');
+                            
+                            typeWriter("FICTIONS ARE THE BEST BOOKS", dialogueText, () => {
+                                continueBtn.classList.remove('hidden');
+                                continueBtn.onclick = () => {
+
+                                    continueBtn.classList.add('hidden');
+                                    rightChar.classList.add('hidden');
+                                    charContainer.classList.remove('hidden');
+                                    
+                                    typeWriter("ugh", dialogueText, () => {
+                                        continueBtn.classList.remove('hidden');
+                                        continueBtn.onclick = () => {
+                                            dialogueBox.style.display = 'none';
+                                            document.getElementById('overlay').classList.add('fade-out');
+                                            
+                                            charContainer.classList.add('minimize');
+                                            changeCharacterImage('axiestand.png');
+
+                                            
+                                            rightChar.classList.add('minimize-right');
+                                            document.getElementById('character-img-right').src = 'images/bevstand.png';
+                                            
+                                            document.getElementById('question-screen').classList.remove('hidden');
+                                            document.querySelector('.type-selector').style.display = 'block';
+                                            document.getElementById('questions-container').classList.add('hidden');
+                                            
+                                            const typeButtons = document.querySelector('.type-buttons');
+                                            typeButtons.innerHTML = `
+                                                <button onclick="selectType('fiction')">FICTION</button>
+                                                <button onclick="selectType('nonfiction')">NON-FICTION</button>
+                                            `;
+                                        };
+                                    });
+                                };
+                            });
+                        };
+                    });
+                };
+            });
+        };
+    });
 }
 
 function switchToMovieMode() {
@@ -588,12 +831,12 @@ function switchToMovieMode() {
     }
     
     animeMode = false;
+    booksMode = false;
     document.body.style.backgroundImage = "url('images/pink.jfif')";
     document.getElementById('anime-btn').textContent = 'ANIME MODE';
 
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
-
     document.getElementById('final-screen').classList.add('hidden');
 
     document.getElementById('dialogue-box').style.display = 'none';
@@ -603,12 +846,10 @@ function switchToMovieMode() {
 
     const charContainer = document.getElementById('character-container');
     charContainer.classList.remove('minimize');
-
     charContainer.classList.remove('hidden');
     changeCharacterImage('welcome.png');
 
     const dialogueBox = document.getElementById('dialogue-box');
-
     const dialogueText = document.getElementById('dialogue-text');
 
     const dialogueOptions = document.getElementById('dialogue-options');
@@ -626,11 +867,12 @@ function switchToMovieMode() {
         changeCharacterImage('whiletyping.png');
         dialogueBox.style.display = 'none';
         document.getElementById('overlay').classList.add('fade-out');
-
         charContainer.classList.add('minimize');
+
         document.getElementById('question-screen').classList.remove('hidden');
         
         document.querySelector('.type-selector').style.display = 'block';
+
         document.getElementById('questions-container').classList.add('hidden');
         
         const typeButtons = document.querySelector('.type-buttons');
@@ -639,12 +881,12 @@ function switchToMovieMode() {
             <button onclick="selectType('season')">SEASON</button>
         `;
     };
+
 }
 
 document.getElementById('anime-btn').addEventListener('click', () => {
     if (animeMode) {
         switchToMovieMode();
-
     } else {
         switchToAnimeMode();
     }
@@ -657,15 +899,27 @@ window.addEventListener('load', () => {
     typeWriter("Do you ever feel like you can't find a good movie to watch?", dialogueText, () => {
         dialogueOptions.innerHTML = `
             <button onclick="handleYesNo('yes')">YES</button>
+
+            
             <button onclick="handleYesNo('no')">NO</button>
         `;
     });
+    
+    setTimeout(() => {
+        const booksBtn = document.createElement('button');
+        booksBtn.textContent = 'BOOKS MODE';
+        booksBtn.className = 'anime-main-btn';
+
+        booksBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #FFD700; color: #000;';
+        booksBtn.onclick = () => switchToBooksMode();
+        document.body.appendChild(booksBtn);
+    }, 100);
 });
 
 function handleYesNo(answer) {
     const dialogueText = document.getElementById('dialogue-text');
-
     const dialogueOptions = document.getElementById('dialogue-options');
+
     const continueBtn = document.getElementById('continue-btn');
     
     if (answer === 'no') {
@@ -678,14 +932,14 @@ function handleYesNo(answer) {
         });
     } else {
         dialogueOptions.innerHTML = '';
-        typeWriter("Then I've got the perfect thing for you!! All you have to do is answer 3 quick questions and you'll get a movie to chill with! (or cry)", dialogueText, () => {
+        typeWriter("Then I've got the perfect thing for you! All you have to do is answer 3 quick questions and you'll get a movie to chill with! (or cry)", dialogueText, () => {
             continueBtn.classList.remove('hidden');
             continueBtn.onclick = () => {
                 changeCharacterImage('whiletyping.png');
                 document.getElementById('dialogue-box').style.display = 'none';
                 document.getElementById('overlay').classList.add('fade-out');
-
                 document.getElementById('character-container').classList.add('minimize');
+
                 document.getElementById('question-screen').classList.remove('hidden');
                 document.getElementById('anime-selector').classList.add('show');
             };
@@ -703,10 +957,16 @@ function selectType(type) {
         questions = movieQuestions;
     } else if (type === 'season') {
         questions = seasonQuestions;
+
     } else if (type === 'anime') {
         questions = animeQuestions;
     } else if (type === 'manga') {
         questions = mangaQuestions;
+
+    } else if (type === 'fiction') {
+        questions = fictionQuestions;
+    } else if (type === 'nonfiction') {
+        questions = nonFictionQuestions;
     }
     
     loadQuestions(questions);
@@ -723,16 +983,17 @@ function loadQuestions(questions) {
         q.options.forEach(option => {
             const btn = document.createElement('button');
             btn.textContent = option;
+
             btn.onclick = () => selectAnswer(questionNum, option, btn, q.hasInput);
             optionsContainer.appendChild(btn);
         });
         
-
         if (q.hasInput && questionNum === 2) {
             const inputField = document.createElement('input');
             inputField.type = 'text';
             inputField.id = 'similar-input';
             inputField.placeholder = 'Type the name here...';
+
             inputField.className = 'similar-input hidden';
             inputField.style.cssText = 'width: 100%; padding: 15px; margin-top: 15px; font-size: 16px; border: 4px solid #000; font-family: Courier New;';
             optionsContainer.appendChild(inputField);
@@ -741,8 +1002,6 @@ function loadQuestions(questions) {
     
     document.getElementById('submit-btn').classList.remove('hidden');
 }
-
-
 
 function selectAnswer(questionNum, answer, button, hasInput) {
     userAnswers[`q${questionNum}`] = answer;
@@ -754,6 +1013,7 @@ function selectAnswer(questionNum, answer, button, hasInput) {
     
     if (questionNum === 2 && hasInput) {
         const inputField = document.getElementById('similar-input');
+
         if (answer === 'Yes') {
             inputField.classList.remove('hidden');
         } else {
@@ -762,17 +1022,16 @@ function selectAnswer(questionNum, answer, button, hasInput) {
         }
     }
 }
-//should ans
 
 document.getElementById('submit-btn').addEventListener('click', () => {
     if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
-
         alert('Please answer all questions!');
         return;
     }
     
     if (userAnswers.q2 === 'Yes') {
         const inputField = document.getElementById('similar-input');
+
         if (inputField && !inputField.classList.contains('hidden')) {
             userAnswers.q2Input = inputField.value.trim().toLowerCase();
         }
@@ -781,9 +1040,26 @@ document.getElementById('submit-btn').addEventListener('click', () => {
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('character-container').classList.add('hidden');
     
+    if (document.getElementById('character-container-right')) {
+        document.getElementById('character-container-right').classList.add('hidden');
+    }
+    
     const thinkingScreen = document.getElementById('thinking-screen');
-    if (animeMode) {
+    if (booksMode) {
+        if (userAnswers.type === 'fiction') {
+            thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
+
+            thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
+        } else {
+            const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
+            const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
+            thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
+
+            thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
+        }
+    } else if (animeMode) {
         thinkingScreen.querySelector('img').src = 'images/dogstand.png';
+
         thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
     } else {
         thinkingScreen.querySelector('img').src = 'images/thinking.png';
@@ -805,11 +1081,18 @@ document.getElementById('submit-btn').addEventListener('click', () => {
             if (userAnswers.type === 'movie') {
                 database = movieDatabase;
             } else if (userAnswers.type === 'season') {
+
                 database = seasonDatabase;
             } else if (userAnswers.type === 'anime') {
                 database = animeDatabase;
             } else if (userAnswers.type === 'manga') {
+
                 database = mangaDatabase;
+
+            } else if (userAnswers.type === 'fiction') {
+                database = fictionDatabase;
+            } else if (userAnswers.type === 'nonfiction') {
+                database = nonFictionDatabase;
             }
             if (database && database.length) {
                 recommendation = database[Math.floor(Math.random() * database.length)];
@@ -823,7 +1106,6 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 });
 
 function findSimilarContent(userInput, database) {
-
     if (!userInput) return null;
     
     let match = database.find(item => 
@@ -841,16 +1123,21 @@ function findSimilarContent(userInput, database) {
 }
 
 function getRecommendation() {
-
     let database;
     if (userAnswers.type === 'movie') {
         database = movieDatabase;
     } else if (userAnswers.type === 'season') {
+
         database = seasonDatabase;
     } else if (userAnswers.type === 'anime') {
         database = animeDatabase;
     } else if (userAnswers.type === 'manga') {
         database = mangaDatabase;
+
+    } else if (userAnswers.type === 'fiction') {
+        database = fictionDatabase;
+    } else if (userAnswers.type === 'nonfiction') {
+        database = nonFictionDatabase;
     }
     
     let candidates = [...database];
@@ -872,6 +1159,7 @@ function getRecommendation() {
     }
     
     if (userAnswers.type === 'movie' && userAnswers.q3 !== "Don't care") {
+
         const moodFiltered = candidates.filter(item => 
             item.mood && item.mood.toLowerCase() === userAnswers.q3.toLowerCase()
         );
@@ -888,10 +1176,28 @@ function getRecommendation() {
             candidates = vibeFiltered;
         }
     }
+
+    if (userAnswers.type === 'fiction' && userAnswers.q3 !== "Don't care") {
+        const moodFiltered = candidates.filter(item => 
+            item.mood && item.mood.toLowerCase() === userAnswers.q3.toLowerCase()
+        );
+        if (moodFiltered.length > 0) {
+            candidates = moodFiltered;
+        }
+    }
+
+    if (userAnswers.type === 'nonfiction' && userAnswers.q3 !== "Don't care") {
+
+        const goalFiltered = candidates.filter(item => 
+            item.goal && item.goal.toLowerCase() === userAnswers.q3.toLowerCase()
+        );
+        if (goalFiltered.length > 0) {
+            candidates = goalFiltered;
+        }
+    }
     
     if (userAnswers.type === 'season' && userAnswers.q3 !== "Don't care") {
         if (userAnswers.q3.includes('Short')) {
-
             candidates = candidates.filter(item => {
                 const episodeNum = parseInt(item.episodes);
                 return episodeNum < 20;
@@ -899,6 +1205,7 @@ function getRecommendation() {
         } else if (userAnswers.q3.includes('Medium')) {
             candidates = candidates.filter(item => {
                 const episodeNum = parseInt(item.episodes);
+
                 return episodeNum >= 20 && episodeNum <= 50;
             });
         } else if (userAnswers.q3.includes('Long')) {
@@ -911,18 +1218,19 @@ function getRecommendation() {
     
     if (userAnswers.type === 'manga' && userAnswers.q3 !== "Don't care") {
         if (userAnswers.q3.includes('Short')) {
-
             candidates = candidates.filter(item => {
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum < 50;
             });
         } else if (userAnswers.q3.includes('Medium')) {
             candidates = candidates.filter(item => {
+
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum >= 50 && chapterNum <= 200;
             });
         } else if (userAnswers.q3.includes('Long')) {
             candidates = candidates.filter(item => {
+
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum > 200;
             });
@@ -930,7 +1238,6 @@ function getRecommendation() {
     }
     
     candidates = candidates.filter(item => 
-
         !shownRecommendations.includes(item.title)
     );
     
@@ -940,14 +1247,13 @@ function getRecommendation() {
     }
     
     const recommendation = candidates[Math.floor(Math.random() * candidates.length)];
-
     shownRecommendations.push(recommendation.title);
-
     
     return recommendation;
 }
 
-//result spesific
+
+
 function showResult(recommendation) {
     document.getElementById('thinking-screen').classList.add('hidden');
     
@@ -960,9 +1266,14 @@ function showResult(recommendation) {
         } else if (seasonDatabase.some(x => x.title === recommendation.title)) {
             currentResultType = 'season';
         } else if (animeDatabase.some(x => x.title === recommendation.title)) {
+
             currentResultType = 'anime';
         } else if (mangaDatabase.some(x => x.title === recommendation.title)) {
             currentResultType = 'manga';
+        } else if (fictionDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'fiction';
+        } else if (nonFictionDatabase.some(x => x.title === recommendation.title)) {
+            currentResultType = 'nonfiction';
         } else {
             currentResultType = null;
         }
@@ -987,7 +1298,6 @@ function showResult(recommendation) {
     resultScreen.classList.remove('hidden');
 }
 
-
 function handleFeedback(liked) {
     if (liked) {
         document.getElementById('result-screen').classList.add('hidden');
@@ -995,80 +1305,238 @@ function handleFeedback(liked) {
         const charContainer = document.getElementById('character-container');
         charContainer.classList.remove('hidden');
         charContainer.classList.remove('minimize');
+
+        const dialogueBox = document.getElementById('dialogue-box');
+        const dialogueText = document.getElementById('dialogue-text');
+
+        const continueBtn = document.getElementById('continue-btn');
+
         
-        if (animeMode) {
+        if (booksMode) {
+            if (userAnswers.type === 'fiction' || currentResultType === 'fiction') {
+                changeCharacterImage('bevapprove.png');
+                dialogueBox.style.display = 'block';
+                typeWriter("YES!! A FANTASTIC CHOICE", dialogueText, () => {
+                    continueBtn.classList.remove('hidden');
+                    continueBtn.onclick = () => {
+                        dialogueBox.style.display = 'none';
+
+                        charContainer.classList.add('hidden');
+                        document.getElementById('final-screen').classList.remove('hidden');
+                    };
+                });
+            } else {
+                changeCharacterImage('axieapprove.png');
+                dialogueBox.style.display = 'block';
+                typeWriter("glad I could help <3", dialogueText, () => {
+                    continueBtn.classList.remove('hidden');
+                    continueBtn.onclick = () => {
+                        dialogueBox.style.display = 'none';
+                        charContainer.classList.add('hidden');
+
+                        document.getElementById('final-screen').classList.remove('hidden');
+                    };
+                });
+            }
+        } else if (animeMode) {
             changeCharacterImage('dogstand.png');
+            characterTimeout = setTimeout(() => {
+                charContainer.classList.add('hidden');
+                document.getElementById('final-screen').classList.remove('hidden');
+            }, 2000);
         } else {
             changeCharacterImage('choosen.png');
+            characterTimeout = setTimeout(() => {
+                charContainer.classList.add('hidden');
+                document.getElementById('final-screen').classList.remove('hidden');
+            }, 2000);
         }
-        
-        characterTimeout = setTimeout(() => {
-            charContainer.classList.add('hidden');
-            document.getElementById('final-screen').classList.remove('hidden');
-        }, 2000);
     } else {
         document.getElementById('result-screen').classList.add('hidden');
         
         const charContainer = document.getElementById('character-container');
         charContainer.classList.remove('hidden');
+
         charContainer.classList.remove('minimize');
+
+        const dialogueBox = document.getElementById('dialogue-box');
+        const dialogueText = document.getElementById('dialogue-text');
+
+        const continueBtn = document.getElementById('continue-btn');
         
-        if (animeMode) {
+        if (booksMode) {
+            if (userAnswers.type === 'fiction' || currentResultType === 'fiction') {
+                changeCharacterImage('bevno.png');
+                dialogueBox.style.display = 'block';
+                typeWriter("guess I'll have to keep looking AGAIN", dialogueText, () => {
+
+                    continueBtn.classList.remove('hidden');
+                    continueBtn.onclick = () => {
+
+                        dialogueBox.style.display = 'none';
+
+                        charContainer.classList.add('hidden');
+                        
+                        const thinkingScreen = document.getElementById('thinking-screen');
+                        thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
+
+                        thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
+                        thinkingScreen.classList.remove('hidden');
+                        
+                        thinkingTimeout = setTimeout(() => {
+                            let newRecommendation = null;
+                            try {
+                                if (userAnswers.type) {
+                                    newRecommendation = getRecommendation();
+                                }
+                            } catch (e) {
+                                newRecommendation = null;
+                            }
+                            if (!newRecommendation) {
+                                let mediaType = userAnswers.type || currentResultType;
+                                let database = fictionDatabase;
+                                if (database && database.length) {
+                                    const pool = database.filter(item => item.title !== currentResultTitle);
+                                    const source = pool.length ? pool : database;
+                                    newRecommendation = source[Math.floor(Math.random() * source.length)];
+                                } else {
+                                    return;
+                                }
+                            }
+                            showResult(newRecommendation);
+                        }, 3000);
+                    };
+                });
+            } else {
+                changeCharacterImage('axieno.png');
+                dialogueBox.style.display = 'block';
+                typeWriter("Oh I'll search the shelves one more time", dialogueText, () => {
+
+                    continueBtn.classList.remove('hidden');
+
+                    continueBtn.onclick = () => {
+
+                        dialogueBox.style.display = 'none';
+                        charContainer.classList.add('hidden');
+                        
+                        const thinkingScreen = document.getElementById('thinking-screen');
+                        const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
+                        const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
+                        thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
+
+                        thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
+                        thinkingScreen.classList.remove('hidden');
+                        
+                        thinkingTimeout = setTimeout(() => {
+                            let newRecommendation = null;
+                            try {
+                                if (userAnswers.type) {
+                                    newRecommendation = getRecommendation();
+                                }
+                            } catch (e) {
+                                newRecommendation = null;
+                            }
+                            if (!newRecommendation) {
+                                let mediaType = userAnswers.type || currentResultType;
+                                let database = nonFictionDatabase;
+
+                                if (database && database.length) {
+                                    const pool = database.filter(item => item.title !== currentResultTitle);
+                                    const source = pool.length ? pool : database;
+                                    newRecommendation = source[Math.floor(Math.random() * source.length)];
+                                } else {
+                                    return;
+                                }
+                            }
+                            showResult(newRecommendation);
+                        }, 3000);
+                    };
+                });
+            }
+        } else if (animeMode) {
             changeCharacterImage('dogcry.png');
+            characterTimeout = setTimeout(() => {
+                charContainer.classList.add('hidden');
+                
+                const thinkingScreen = document.getElementById('thinking-screen');
+                thinkingScreen.querySelector('img').src = 'images/dogstand.png';
+
+                thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
+                thinkingScreen.classList.remove('hidden');
+                
+                thinkingTimeout = setTimeout(() => {
+                    let newRecommendation = null;
+                    try {
+                        if (userAnswers.type) {
+                            newRecommendation = getRecommendation();
+                        }
+                    } catch (e) {
+                        newRecommendation = null;
+                    }
+                    if (!newRecommendation) {
+                        let mediaType = userAnswers.type || currentResultType;
+                        let database = null;
+
+                        if (mediaType === 'anime') {
+                            database = animeDatabase;
+
+                        } else if (mediaType === 'manga') {
+                            database = mangaDatabase;
+                        }
+                        if (database && database.length) {
+                            const pool = database.filter(item => item.title !== currentResultTitle);
+                            const source = pool.length ? pool : database;
+                            newRecommendation = source[Math.floor(Math.random() * source.length)];
+                        } else {
+                            return;
+
+                        }
+                    }
+                    showResult(newRecommendation);
+
+                }, 3000);
+            }, 2000);
         } else {
             changeCharacterImage('findmore.png');
-        }
 
-
-        
-        characterTimeout = setTimeout(() => {
-            charContainer.classList.add('hidden');
-            
-            const thinkingScreen = document.getElementById('thinking-screen');
-            if (animeMode) {
-                thinkingScreen.querySelector('img').src = 'images/dogstand.png';
-                thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
-            } else {
+            characterTimeout = setTimeout(() => {
+                charContainer.classList.add('hidden');
+                
+                const thinkingScreen = document.getElementById('thinking-screen');
                 thinkingScreen.querySelector('img').src = 'images/thinking.png';
                 thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
-            }
-            thinkingScreen.classList.remove('hidden');
-            
-            thinkingTimeout = setTimeout(() => {
-                let newRecommendation = null;
+                thinkingScreen.classList.remove('hidden');
+                
+                thinkingTimeout = setTimeout(() => {
 
-                try {
-                    if (userAnswers.type) {
-                        newRecommendation = getRecommendation();
+                    let newRecommendation = null;
+                    try {
+                        if (userAnswers.type) {
+                            newRecommendation = getRecommendation();
+                        }
+                    } catch (e) {
+                        newRecommendation = null;
                     }
-                } catch (e) {
-                    newRecommendation = null;
-                }
-
-                if (!newRecommendation) {
-                    let mediaType = userAnswers.type || currentResultType;
-                    let database = null;
-                    if (mediaType === 'movie') {
-                        database = movieDatabase;
-                    } else if (mediaType === 'season') {
-                        database = seasonDatabase;
-                    } else if (mediaType === 'anime') {
-                        database = animeDatabase;
-                    } else if (mediaType === 'manga') {
-                        database = mangaDatabase;
+                    if (!newRecommendation) {
+                        let mediaType = userAnswers.type || currentResultType;
+                        let database = null;
+                        if (mediaType === 'movie') {
+                            database = movieDatabase;
+                        } else if (mediaType === 'season') {
+                            database = seasonDatabase;
+                        }
+                        if (database && database.length) {
+                            const pool = database.filter(item => item.title !== currentResultTitle);
+                            const source = pool.length ? pool : database;
+                            newRecommendation = source[Math.floor(Math.random() * source.length)];
+                        } else {
+                            return;
+                        }
                     }
-                    if (database && database.length) {
-                        const pool = database.filter(item => item.title !== currentResultTitle);
-                        const source = pool.length ? pool : database;
-                        newRecommendation = source[Math.floor(Math.random() * source.length)];
-                    } else {
-                        return;
-                    }
-                }
-
-                showResult(newRecommendation);
-            }, 3000);
-        }, 2000); 
+                    showResult(newRecommendation);
+                }, 3000);
+            }, 2000);
+        }
     }
 }
 
