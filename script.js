@@ -447,8 +447,9 @@ let thinkingTimeout = null;
 let characterTimeout = null;
 let currentResultType = null;
 let currentResultTitle = null;
-let animeMode = false;
 let booksMode = false;
+let booksBtn = null;
+let typeWriterTimeout = null;
 
 const searchBar = document.getElementById('search-bar');
 const searchResults = document.getElementById('search-results');
@@ -470,13 +471,10 @@ searchBar.addEventListener('input', (e) => {
     } else {
         allContent = [...movieDatabase, ...seasonDatabase];
     }
-
-    //filterss
-
+//filterss
     const filtered = allContent.filter(item => {
         const titleMatch = item.title && item.title.toLowerCase().includes(query);
         const genreMatch = item.genre && item.genre.toLowerCase().includes(query);
-
         const tagsMatch = Array.isArray(item.tags) && item.tags.some(tag => tag.toLowerCase().includes(query));
         return titleMatch || genreMatch || tagsMatch;
     });
@@ -499,7 +497,6 @@ searchBar.addEventListener('input', (e) => {
     searchResults.innerHTML = '';
     unique.slice(0, 10).forEach(item => {
         const resultItem = document.createElement('div');
-
         resultItem.className = 'search-result-item';
 
         let extra = '';
@@ -511,6 +508,7 @@ searchBar.addEventListener('input', (e) => {
 
         resultItem.innerHTML = `
             <h4>${item.title}</h4>
+
             <p>${extra}${item.info}</p>
         `;
         resultItem.onclick = () => showSearchedItem(item);
@@ -522,45 +520,93 @@ searchBar.addEventListener('input', (e) => {
 
 document.addEventListener('click', (e) => {
     if (e.target !== searchBar && !searchResults.contains(e.target)) {
+
         searchResults.classList.add('hidden');
     }
 });
+
+
+//fixd 4 bev animation typewriter
+function typeWriter(text, element, callback) {
+    if (typeWriterTimeout) {
+
+        clearTimeout(typeWriterTimeout);
+        typeWriterTimeout = null;
+    }
+
+    element.textContent = '';
+    let i = 0;
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+
+            i++;
+            typeWriterTimeout = setTimeout(type, 30);
+        } else {
+            typeWriterTimeout = null;
+            if (callback) callback();
+        }
+    }
+    
+    type();
+}
+
+
+
+function changeCharacterImage(imageName) {
+    const charImg = document.getElementById('character-img');
+
+    charImg.src = `images/${imageName}`;
+}
+
+function setBookThinking(isFiction) {
+    const thinkingScreen = document.getElementById('thinking-screen');
+    const thinkImg = thinkingScreen.querySelector('img');
+
+    const thinkText = thinkingScreen.querySelector('h2');
+
+    if (isFiction) {
+        thinkImg.src = 'images/bevthinking.png';
+
+        thinkText.textContent = 'BEV IS THINKING...';
+    } else {
+        thinkImg.src = 'images/axiethinking.png';
+        thinkText.textContent = 'AXIE IS THINKING...';
+    }
+}
 
 function showSearchedItem(item) {
     searchResults.classList.add('hidden');
     searchBar.value = '';
 
+
     document.getElementById('question-screen').classList.add('hidden');
-
     document.getElementById('character-container').classList.add('hidden');
-    if (document.getElementById('character-container-right')) {
-        document.getElementById('character-container-right').classList.add('hidden');
-    }
-//axie n bev
+    const rightChar = document.getElementById('character-container-right');
+    if (rightChar) rightChar.classList.add('hidden');
+
     const thinkingScreen = document.getElementById('thinking-screen');
-    if (booksMode) {
-        if (fictionDatabase.some(x => x.title === item.title)) {
-            thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
+    const thinkImg = thinkingScreen.querySelector('img');
+    const thinkText = thinkingScreen.querySelector('h2');
 
-            thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
-        } else {
-            const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
-            const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
-            thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
-            thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
-        }
-    } else if (animeMode) {
-        thinkingScreen.querySelector('img').src = 'images/dogstand.png';
-        thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
-
+    if (fictionDatabase.some(x => x.title === item.title)) {
+        setBookThinking(true);
+    } else if (nonFictionDatabase.some(x => x.title === item.title)) {
+        setBookThinking(false);
+    } else if (animeDatabase.some(x => x.title === item.title) || mangaDatabase.some(x => x.title === item.title)) {
+        thinkImg.src = 'images/dogstand.png';
+        thinkText.textContent = 'DOGGO IS THINKING...';
     } else {
-        thinkingScreen.querySelector('img').src = 'images/thinking.png';
+        thinkImg.src = 'images/thinking.png';
+        thinkText.textContent = 'LUFFY IS THINKING...';
 
-        thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
     }
+
     thinkingScreen.classList.remove('hidden');
 
     thinkingTimeout = setTimeout(() => {
+
         thinkingScreen.classList.add('hidden');
 
         currentResultTitle = item.title;
@@ -569,7 +615,6 @@ function showSearchedItem(item) {
         } else if (seasonDatabase.some(x => x.title === item.title)) {
             currentResultType = 'season';
         } else if (animeDatabase.some(x => x.title === item.title)) {
-
             currentResultType = 'anime';
         } else if (mangaDatabase.some(x => x.title === item.title)) {
             currentResultType = 'manga';
@@ -581,9 +626,10 @@ function showSearchedItem(item) {
             currentResultType = null;
         }
 
+
+
         const resultScreen = document.getElementById('result-screen');
         document.getElementById('result-title').textContent = item.title;
-
         document.getElementById('result-description').textContent =
             (item.episodes || item.chapters ? (item.episodes || item.chapters) + ' • ' : '') + item.info;
         
@@ -593,33 +639,7 @@ function showSearchedItem(item) {
     }, 2000);
 }
 
-function typeWriter(text, element, callback) {
-
-    element.textContent = '';
-    let i = 0;
-    
-    function type() {
-        if (i < text.length) {
-
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, 30);
-        } else if (callback) {
-            callback();
-        }
-    }
-    
-    type();
-}
-
-function changeCharacterImage(imageName) {
-    const charImg = document.getElementById('character-img');
-    charImg.src = `images/${imageName}`;
-}
-
 document.getElementById('theme-btn').addEventListener('click', () => {
-
-
     const themeOptions = document.getElementById('theme-options');
     themeOptions.classList.toggle('hidden');
 });
@@ -648,10 +668,8 @@ function switchToAnimeMode() {
     document.body.style.backgroundImage = "url('images/green.jfif')";
     document.getElementById('anime-btn').textContent = 'MOVIE MODE';
 
-
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
-
     document.getElementById('final-screen').classList.add('hidden');
     document.getElementById('dialogue-box').style.display = 'none';
     document.getElementById('thinking-screen').classList.add('hidden');
@@ -660,12 +678,19 @@ function switchToAnimeMode() {
 
     const charContainer = document.getElementById('character-container');
     charContainer.classList.remove('minimize');
+    charContainer.classList.remove('books-intro');
     charContainer.classList.remove('hidden');
     changeCharacterImage('dogspeak.png');
 
+    const rightChar = document.getElementById('character-container-right');
+    if (rightChar) {
+        rightChar.classList.remove('books-intro');
+        rightChar.classList.remove('minimize-right');
+        rightChar.classList.add('hidden');
+    }
+
     const dialogueBox = document.getElementById('dialogue-box');
     const dialogueText = document.getElementById('dialogue-text');
-
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
 
@@ -677,6 +702,7 @@ function switchToAnimeMode() {
         continueBtn.classList.remove('hidden');
     });
 
+    //doggo pngs
     continueBtn.onclick = () => {
         changeCharacterImage('dogmad.png');
         dialogueBox.style.display = 'none';
@@ -691,7 +717,6 @@ function switchToAnimeMode() {
         const typeButtons = document.querySelector('.type-buttons');
         typeButtons.innerHTML = `
             <button onclick="selectType('anime')">ANIME</button>
-
             <button onclick="selectType('manga')">MANGA</button>
         `;
     };
@@ -712,61 +737,60 @@ function switchToBooksMode() {
     document.body.style.backgroundImage = "url('images/yellow.jpg')";
 
     document.getElementById('question-screen').classList.add('hidden');
-
     document.getElementById('result-screen').classList.add('hidden');
-
     document.getElementById('final-screen').classList.add('hidden');
     document.getElementById('dialogue-box').style.display = 'none';
-
     document.getElementById('thinking-screen').classList.add('hidden');
 
     document.getElementById('overlay').classList.remove('fade-out');
 
+
     const charContainer = document.getElementById('character-container');
     charContainer.classList.remove('minimize');
-
+    charContainer.classList.add('books-intro');
     charContainer.classList.remove('hidden');
     changeCharacterImage('axienormal.png');
 
-    const dialogueBox = document.getElementById('dialogue-box');
+    let rightChar = document.getElementById('character-container-right');
+    if (!rightChar) {
+        rightChar = document.createElement('div');
+        rightChar.id = 'character-container-right';
+        rightChar.className = 'character-container-right books-intro';
+        rightChar.innerHTML = '<img id="character-img-right" src="images/bevnormal.png" alt="Bev">';
+        document.body.appendChild(rightChar);
+    } else {
+        rightChar.classList.remove('minimize-right');
+        rightChar.classList.add('books-intro');
+        rightChar.classList.remove('hidden');
+        document.getElementById('character-img-right').src = 'images/bevnormal.png';
+    }
 
+    const dialogueBox = document.getElementById('dialogue-box');
     const dialogueText = document.getElementById('dialogue-text');
 
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
+//boodmode dialogs
+
 
     dialogueOptions.innerHTML = '';
     continueBtn.classList.add('hidden');
     dialogueBox.style.display = 'block';
 
-    //axie's dialoges
-
     typeWriter("You found your way to the books section!!! yayaya", dialogueText, () => {
-
         continueBtn.classList.remove('hidden');
         continueBtn.onclick = () => {
             continueBtn.classList.add('hidden');
             charContainer.classList.add('hidden');
             
-            let rightChar = document.getElementById('character-container-right');
-            if (!rightChar) {
-                rightChar = document.createElement('div');
-
-                rightChar.id = 'character-container-right';
-                rightChar.className = 'character-container-right';
-
-                rightChar.innerHTML = '<img id="character-img-right" src="images/bevnormal.png" alt="Bev">';
-                document.body.appendChild(rightChar);
-            } else {
-                rightChar.classList.remove('hidden');
-                document.getElementById('character-img-right').src = 'images/bevnormal.png';
-            }
+            rightChar.classList.add('books-intro');
+            rightChar.classList.remove('hidden');
+            document.getElementById('character-img-right').src = 'images/bevnormal.png';
 
             typeWriter("Yes, finally you've come to look for the REAL art..", dialogueText, () => {
                 continueBtn.classList.remove('hidden');
                 continueBtn.onclick = () => {
                     continueBtn.classList.add('hidden');
-
                     rightChar.classList.add('hidden');
                     charContainer.classList.remove('hidden');
                     
@@ -775,13 +799,12 @@ function switchToBooksMode() {
                         continueBtn.onclick = () => {
                             continueBtn.classList.add('hidden');
                             charContainer.classList.add('hidden');
-
                             rightChar.classList.remove('hidden');
                             
+                            //typewriter fixd
                             typeWriter("FICTIONS ARE THE BEST BOOKS", dialogueText, () => {
                                 continueBtn.classList.remove('hidden');
                                 continueBtn.onclick = () => {
-
                                     continueBtn.classList.add('hidden');
                                     rightChar.classList.add('hidden');
                                     charContainer.classList.remove('hidden');
@@ -790,12 +813,15 @@ function switchToBooksMode() {
                                         continueBtn.classList.remove('hidden');
                                         continueBtn.onclick = () => {
                                             dialogueBox.style.display = 'none';
+                                            
                                             document.getElementById('overlay').classList.add('fade-out');
                                             
+                                            charContainer.classList.remove('books-intro');
                                             charContainer.classList.add('minimize');
                                             changeCharacterImage('axiestand.png');
-
                                             
+                                            rightChar.classList.remove('books-intro');
+                                            rightChar.classList.remove('hidden');
                                             rightChar.classList.add('minimize-right');
                                             document.getElementById('character-img-right').src = 'images/bevstand.png';
                                             
@@ -809,6 +835,7 @@ function switchToBooksMode() {
                                                 <button onclick="selectType('nonfiction')">NON-FICTION</button>
                                             `;
                                         };
+
                                     });
                                 };
                             });
@@ -819,6 +846,9 @@ function switchToBooksMode() {
         };
     });
 }
+
+
+
 
 function switchToMovieMode() {
     if (thinkingTimeout) {
@@ -846,12 +876,19 @@ function switchToMovieMode() {
 
     const charContainer = document.getElementById('character-container');
     charContainer.classList.remove('minimize');
+    charContainer.classList.remove('books-intro');
     charContainer.classList.remove('hidden');
     changeCharacterImage('welcome.png');
 
+    const rightChar = document.getElementById('character-container-right');
+    if (rightChar) {
+        rightChar.classList.remove('books-intro');
+        rightChar.classList.remove('minimize-right');
+        rightChar.classList.add('hidden');
+    }
+
     const dialogueBox = document.getElementById('dialogue-box');
     const dialogueText = document.getElementById('dialogue-text');
-
     const dialogueOptions = document.getElementById('dialogue-options');
     const continueBtn = document.getElementById('continue-btn');
 
@@ -868,11 +905,9 @@ function switchToMovieMode() {
         dialogueBox.style.display = 'none';
         document.getElementById('overlay').classList.add('fade-out');
         charContainer.classList.add('minimize');
-
         document.getElementById('question-screen').classList.remove('hidden');
         
         document.querySelector('.type-selector').style.display = 'block';
-
         document.getElementById('questions-container').classList.add('hidden');
         
         const typeButtons = document.querySelector('.type-buttons');
@@ -881,8 +916,9 @@ function switchToMovieMode() {
             <button onclick="selectType('season')">SEASON</button>
         `;
     };
-
 }
+
+
 
 document.getElementById('anime-btn').addEventListener('click', () => {
     if (animeMode) {
@@ -899,21 +935,17 @@ window.addEventListener('load', () => {
     typeWriter("Do you ever feel like you can't find a good movie to watch?", dialogueText, () => {
         dialogueOptions.innerHTML = `
             <button onclick="handleYesNo('yes')">YES</button>
-
-            
             <button onclick="handleYesNo('no')">NO</button>
         `;
     });
     
-    setTimeout(() => {
-        const booksBtn = document.createElement('button');
-        booksBtn.textContent = 'BOOKS MODE';
-        booksBtn.className = 'anime-main-btn';
+    booksBtn = document.createElement('button');
+    booksBtn.textContent = 'BOOKS MODE';
+    booksBtn.className = 'anime-main-btn';
 
-        booksBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #FFD700; color: #000;';
-        booksBtn.onclick = () => switchToBooksMode();
-        document.body.appendChild(booksBtn);
-    }, 100);
+    booksBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #FFD700; color: #000; display: none;';
+    booksBtn.onclick = () => switchToBooksMode();
+    document.body.appendChild(booksBtn);
 });
 
 function handleYesNo(answer) {
@@ -926,6 +958,7 @@ function handleYesNo(answer) {
         changeCharacterImage('no.png');
         dialogueOptions.innerHTML = '';
         typeWriter("Oh... Well, goodbye then! :( ", dialogueText, () => {
+
             setTimeout(() => {
                 document.body.innerHTML = '<div style="background:#000; width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; color:#fff; font-size:48px; font-family:Courier New;">GOODBYE!</div>';
             }, 2000);
@@ -938,18 +971,23 @@ function handleYesNo(answer) {
                 changeCharacterImage('whiletyping.png');
                 document.getElementById('dialogue-box').style.display = 'none';
                 document.getElementById('overlay').classList.add('fade-out');
-                document.getElementById('character-container').classList.add('minimize');
 
+                document.getElementById('character-container').classList.add('minimize');
                 document.getElementById('question-screen').classList.remove('hidden');
+
                 document.getElementById('anime-selector').classList.add('show');
+                if (booksBtn) booksBtn.style.display = 'block';
             };
         });
     }
 }
 
+
+
 function selectType(type) {
     userAnswers.type = type;
     document.querySelector('.type-selector').style.display = 'none';
+
     document.getElementById('questions-container').classList.remove('hidden');
     
     let questions;
@@ -960,9 +998,10 @@ function selectType(type) {
 
     } else if (type === 'anime') {
         questions = animeQuestions;
-    } else if (type === 'manga') {
-        questions = mangaQuestions;
 
+    } else if (type === 'manga') {
+
+        questions = mangaQuestions;
     } else if (type === 'fiction') {
         questions = fictionQuestions;
     } else if (type === 'nonfiction') {
@@ -983,7 +1022,6 @@ function loadQuestions(questions) {
         q.options.forEach(option => {
             const btn = document.createElement('button');
             btn.textContent = option;
-
             btn.onclick = () => selectAnswer(questionNum, option, btn, q.hasInput);
             optionsContainer.appendChild(btn);
         });
@@ -1013,7 +1051,6 @@ function selectAnswer(questionNum, answer, button, hasInput) {
     
     if (questionNum === 2 && hasInput) {
         const inputField = document.getElementById('similar-input');
-
         if (answer === 'Yes') {
             inputField.classList.remove('hidden');
         } else {
@@ -1023,6 +1060,8 @@ function selectAnswer(questionNum, answer, button, hasInput) {
     }
 }
 
+//fixederrors
+
 document.getElementById('submit-btn').addEventListener('click', () => {
     if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
         alert('Please answer all questions!');
@@ -1031,39 +1070,32 @@ document.getElementById('submit-btn').addEventListener('click', () => {
     
     if (userAnswers.q2 === 'Yes') {
         const inputField = document.getElementById('similar-input');
-
         if (inputField && !inputField.classList.contains('hidden')) {
+
             userAnswers.q2Input = inputField.value.trim().toLowerCase();
         }
     }
     
     document.getElementById('question-screen').classList.add('hidden');
     document.getElementById('character-container').classList.add('hidden');
-    
-    if (document.getElementById('character-container-right')) {
-        document.getElementById('character-container-right').classList.add('hidden');
-    }
+    const rightChar = document.getElementById('character-container-right');
+    if (rightChar) rightChar.classList.add('hidden');
     
     const thinkingScreen = document.getElementById('thinking-screen');
-    if (booksMode) {
-        if (userAnswers.type === 'fiction') {
-            thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
+    const thinkImg = thinkingScreen.querySelector('img');
 
-            thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
-        } else {
-            const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
-            const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
-            thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
+    const thinkText = thinkingScreen.querySelector('h2');
 
-            thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
-        }
-    } else if (animeMode) {
-        thinkingScreen.querySelector('img').src = 'images/dogstand.png';
-
-        thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
+    if (userAnswers.type === 'fiction') {
+        setBookThinking(true);
+    } else if (userAnswers.type === 'nonfiction') {
+        setBookThinking(false);
+    } else if (animeMode || userAnswers.type === 'anime' || userAnswers.type === 'manga') {
+        thinkImg.src = 'images/dogstand.png';
+        thinkText.textContent = 'DOGGO IS THINKING...';
     } else {
-        thinkingScreen.querySelector('img').src = 'images/thinking.png';
-        thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
+        thinkImg.src = 'images/thinking.png';
+        thinkText.textContent = 'LUFFY IS THINKING...';
     }
     thinkingScreen.classList.remove('hidden');
     
@@ -1081,15 +1113,14 @@ document.getElementById('submit-btn').addEventListener('click', () => {
             if (userAnswers.type === 'movie') {
                 database = movieDatabase;
             } else if (userAnswers.type === 'season') {
-
                 database = seasonDatabase;
+
             } else if (userAnswers.type === 'anime') {
                 database = animeDatabase;
             } else if (userAnswers.type === 'manga') {
-
                 database = mangaDatabase;
-
             } else if (userAnswers.type === 'fiction') {
+
                 database = fictionDatabase;
             } else if (userAnswers.type === 'nonfiction') {
                 database = nonFictionDatabase;
@@ -1108,13 +1139,15 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 function findSimilarContent(userInput, database) {
     if (!userInput) return null;
     
-    let match = database.find(item => 
+    const match = database.find(item => 
         item.title.toLowerCase().includes(userInput)
     );
     
     if (match) {
         return database.filter(item => 
             item.title !== match.title &&
+            item.tags &&
+            match.tags &&
             item.tags.some(tag => match.tags.includes(tag))
         );
     }
@@ -1131,9 +1164,10 @@ function getRecommendation() {
         database = seasonDatabase;
     } else if (userAnswers.type === 'anime') {
         database = animeDatabase;
+
+
     } else if (userAnswers.type === 'manga') {
         database = mangaDatabase;
-
     } else if (userAnswers.type === 'fiction') {
         database = fictionDatabase;
     } else if (userAnswers.type === 'nonfiction') {
@@ -1144,6 +1178,7 @@ function getRecommendation() {
     
     if (userAnswers.q2Input) {
         const similarContent = findSimilarContent(userAnswers.q2Input, database);
+
         if (similarContent && similarContent.length > 0) {
             candidates = similarContent;
         }
@@ -1151,7 +1186,7 @@ function getRecommendation() {
     
     candidates = candidates.filter(item => 
         item.genre.toLowerCase() === userAnswers.q1.toLowerCase() ||
-        item.tags.some(tag => tag.toLowerCase().includes(userAnswers.q1.toLowerCase()))
+        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(userAnswers.q1.toLowerCase())))
     );
     
     if (candidates.length === 0) {
@@ -1160,40 +1195,33 @@ function getRecommendation() {
     
     if (userAnswers.type === 'movie' && userAnswers.q3 !== "Don't care") {
 
+        
         const moodFiltered = candidates.filter(item => 
+
             item.mood && item.mood.toLowerCase() === userAnswers.q3.toLowerCase()
         );
-        if (moodFiltered.length > 0) {
-            candidates = moodFiltered;
-        }
+        if (moodFiltered.length > 0) candidates = moodFiltered;
     }
     
     if (userAnswers.type === 'anime' && userAnswers.q3 !== "Don't care") {
         const vibeFiltered = candidates.filter(item => 
             item.vibe && item.vibe.toLowerCase() === userAnswers.q3.toLowerCase()
         );
-        if (vibeFiltered.length > 0) {
-            candidates = vibeFiltered;
-        }
+        if (vibeFiltered.length > 0) candidates = vibeFiltered;
     }
 
     if (userAnswers.type === 'fiction' && userAnswers.q3 !== "Don't care") {
         const moodFiltered = candidates.filter(item => 
             item.mood && item.mood.toLowerCase() === userAnswers.q3.toLowerCase()
         );
-        if (moodFiltered.length > 0) {
-            candidates = moodFiltered;
-        }
+        if (moodFiltered.length > 0) candidates = moodFiltered;
     }
 
     if (userAnswers.type === 'nonfiction' && userAnswers.q3 !== "Don't care") {
-
         const goalFiltered = candidates.filter(item => 
             item.goal && item.goal.toLowerCase() === userAnswers.q3.toLowerCase()
         );
-        if (goalFiltered.length > 0) {
-            candidates = goalFiltered;
-        }
+        if (goalFiltered.length > 0) candidates = goalFiltered;
     }
     
     if (userAnswers.type === 'season' && userAnswers.q3 !== "Don't care") {
@@ -1204,8 +1232,8 @@ function getRecommendation() {
             });
         } else if (userAnswers.q3.includes('Medium')) {
             candidates = candidates.filter(item => {
-                const episodeNum = parseInt(item.episodes);
 
+                const episodeNum = parseInt(item.episodes);
                 return episodeNum >= 20 && episodeNum <= 50;
             });
         } else if (userAnswers.q3.includes('Long')) {
@@ -1215,7 +1243,7 @@ function getRecommendation() {
             });
         }
     }
-    
+    //chaptrsfilt
     if (userAnswers.type === 'manga' && userAnswers.q3 !== "Don't care") {
         if (userAnswers.q3.includes('Short')) {
             candidates = candidates.filter(item => {
@@ -1224,13 +1252,11 @@ function getRecommendation() {
             });
         } else if (userAnswers.q3.includes('Medium')) {
             candidates = candidates.filter(item => {
-
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum >= 50 && chapterNum <= 200;
             });
         } else if (userAnswers.q3.includes('Long')) {
             candidates = candidates.filter(item => {
-
                 const chapterNum = parseInt(item.chapters);
                 return chapterNum > 200;
             });
@@ -1251,8 +1277,6 @@ function getRecommendation() {
     
     return recommendation;
 }
-
-
 
 function showResult(recommendation) {
     document.getElementById('thinking-screen').classList.add('hidden');
@@ -1280,12 +1304,17 @@ function showResult(recommendation) {
     }
     
     const resultScreen = document.getElementById('result-screen');
+
     document.getElementById('result-title').textContent = recommendation.title;
     
     let descText = '';
-    if (userAnswers.type === 'season' || userAnswers.type === 'anime' || currentResultType === 'season' || currentResultType === 'anime') {
+    if (
+        userAnswers.type === 'season' || userAnswers.type === 'anime' ||
+        currentResultType === 'season' || currentResultType === 'anime'
+    ) {
         descText = (recommendation.episodes ? recommendation.episodes + ' • ' : '');
     } else if (userAnswers.type === 'manga' || currentResultType === 'manga') {
+
         descText = (recommendation.chapters ? recommendation.chapters + ' • ' : '');
     }
     descText += recommendation.info;
@@ -1306,11 +1335,9 @@ function handleFeedback(liked) {
         charContainer.classList.remove('hidden');
         charContainer.classList.remove('minimize');
 
-        const dialogueBox = document.getElementById('dialogue-box');
+        const dialogueBox = document.getElementById('dialogue-box'); //
         const dialogueText = document.getElementById('dialogue-text');
-
         const continueBtn = document.getElementById('continue-btn');
-
         
         if (booksMode) {
             if (userAnswers.type === 'fiction' || currentResultType === 'fiction') {
@@ -1320,7 +1347,6 @@ function handleFeedback(liked) {
                     continueBtn.classList.remove('hidden');
                     continueBtn.onclick = () => {
                         dialogueBox.style.display = 'none';
-
                         charContainer.classList.add('hidden');
                         document.getElementById('final-screen').classList.remove('hidden');
                     };
@@ -1333,7 +1359,6 @@ function handleFeedback(liked) {
                     continueBtn.onclick = () => {
                         dialogueBox.style.display = 'none';
                         charContainer.classList.add('hidden');
-
                         document.getElementById('final-screen').classList.remove('hidden');
                     };
                 });
@@ -1356,12 +1381,10 @@ function handleFeedback(liked) {
         
         const charContainer = document.getElementById('character-container');
         charContainer.classList.remove('hidden');
-
         charContainer.classList.remove('minimize');
 
         const dialogueBox = document.getElementById('dialogue-box');
         const dialogueText = document.getElementById('dialogue-text');
-
         const continueBtn = document.getElementById('continue-btn');
         
         if (booksMode) {
@@ -1369,18 +1392,13 @@ function handleFeedback(liked) {
                 changeCharacterImage('bevno.png');
                 dialogueBox.style.display = 'block';
                 typeWriter("guess I'll have to keep looking AGAIN", dialogueText, () => {
-
                     continueBtn.classList.remove('hidden');
                     continueBtn.onclick = () => {
-
                         dialogueBox.style.display = 'none';
-
                         charContainer.classList.add('hidden');
                         
                         const thinkingScreen = document.getElementById('thinking-screen');
-                        thinkingScreen.querySelector('img').src = 'images/bevthinking.png';
-
-                        thinkingScreen.querySelector('h2').textContent = 'BEV IS THINKING...';
+                        setBookThinking(true);
                         thinkingScreen.classList.remove('hidden');
                         
                         thinkingTimeout = setTimeout(() => {
@@ -1393,7 +1411,6 @@ function handleFeedback(liked) {
                                 newRecommendation = null;
                             }
                             if (!newRecommendation) {
-                                let mediaType = userAnswers.type || currentResultType;
                                 let database = fictionDatabase;
                                 if (database && database.length) {
                                     const pool = database.filter(item => item.title !== currentResultTitle);
@@ -1411,20 +1428,13 @@ function handleFeedback(liked) {
                 changeCharacterImage('axieno.png');
                 dialogueBox.style.display = 'block';
                 typeWriter("Oh I'll search the shelves one more time", dialogueText, () => {
-
                     continueBtn.classList.remove('hidden');
-
                     continueBtn.onclick = () => {
-
                         dialogueBox.style.display = 'none';
                         charContainer.classList.add('hidden');
                         
                         const thinkingScreen = document.getElementById('thinking-screen');
-                        const axieThinkingImages = ['axiethinking.png', 'axieconfuse.png'];
-                        const randomAxie = axieThinkingImages[Math.floor(Math.random() * axieThinkingImages.length)];
-                        thinkingScreen.querySelector('img').src = 'images/' + randomAxie;
-
-                        thinkingScreen.querySelector('h2').textContent = 'AXIE IS THINKING...';
+                        setBookThinking(false);
                         thinkingScreen.classList.remove('hidden');
                         
                         thinkingTimeout = setTimeout(() => {
@@ -1437,9 +1447,7 @@ function handleFeedback(liked) {
                                 newRecommendation = null;
                             }
                             if (!newRecommendation) {
-                                let mediaType = userAnswers.type || currentResultType;
                                 let database = nonFictionDatabase;
-
                                 if (database && database.length) {
                                     const pool = database.filter(item => item.title !== currentResultTitle);
                                     const source = pool.length ? pool : database;
@@ -1459,9 +1467,11 @@ function handleFeedback(liked) {
                 charContainer.classList.add('hidden');
                 
                 const thinkingScreen = document.getElementById('thinking-screen');
-                thinkingScreen.querySelector('img').src = 'images/dogstand.png';
+                const thinkImg = thinkingScreen.querySelector('img');
 
-                thinkingScreen.querySelector('h2').textContent = 'DOGGO IS THINKING...';
+                const thinkText = thinkingScreen.querySelector('h2');
+                thinkImg.src = 'images/dogstand.png';
+                thinkText.textContent = 'DOGGO IS THINKING...';
                 thinkingScreen.classList.remove('hidden');
                 
                 thinkingTimeout = setTimeout(() => {
@@ -1474,13 +1484,10 @@ function handleFeedback(liked) {
                         newRecommendation = null;
                     }
                     if (!newRecommendation) {
-                        let mediaType = userAnswers.type || currentResultType;
                         let database = null;
-
-                        if (mediaType === 'anime') {
+                        if (userAnswers.type === 'anime' || currentResultType === 'anime') {
                             database = animeDatabase;
-
-                        } else if (mediaType === 'manga') {
+                        } else if (userAnswers.type === 'manga' || currentResultType === 'manga') {
                             database = mangaDatabase;
                         }
                         if (database && database.length) {
@@ -1489,26 +1496,25 @@ function handleFeedback(liked) {
                             newRecommendation = source[Math.floor(Math.random() * source.length)];
                         } else {
                             return;
-
                         }
                     }
                     showResult(newRecommendation);
-
                 }, 3000);
             }, 2000);
         } else {
             changeCharacterImage('findmore.png');
-
             characterTimeout = setTimeout(() => {
                 charContainer.classList.add('hidden');
                 
                 const thinkingScreen = document.getElementById('thinking-screen');
-                thinkingScreen.querySelector('img').src = 'images/thinking.png';
-                thinkingScreen.querySelector('h2').textContent = 'LUFFY IS THINKING...';
+                const thinkImg = thinkingScreen.querySelector('img');
+                
+                const thinkText = thinkingScreen.querySelector('h2');
+                thinkImg.src = 'images/thinking.png';
+                thinkText.textContent = 'LUFFY IS THINKING...';
                 thinkingScreen.classList.remove('hidden');
                 
                 thinkingTimeout = setTimeout(() => {
-
                     let newRecommendation = null;
                     try {
                         if (userAnswers.type) {
@@ -1518,11 +1524,10 @@ function handleFeedback(liked) {
                         newRecommendation = null;
                     }
                     if (!newRecommendation) {
-                        let mediaType = userAnswers.type || currentResultType;
                         let database = null;
-                        if (mediaType === 'movie') {
+                        if (userAnswers.type === 'movie' || currentResultType === 'movie') {
                             database = movieDatabase;
-                        } else if (mediaType === 'season') {
+                        } else if (userAnswers.type === 'season' || currentResultType === 'season') {
                             database = seasonDatabase;
                         }
                         if (database && database.length) {
